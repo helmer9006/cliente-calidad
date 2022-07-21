@@ -1,0 +1,31 @@
+<h2 mat-dialog-title align="center">Cambio de clave</h2>
+<mat-dialog-content >
+    <div class="modal-form">
+        <form [formGroup]="FormLogin" >
+
+            <!-- NOMBRE -->
+            <mat-form-field class="full-width-input">
+                <input formControlName="clave" matInput placeholder="Clave antigua" required />
+                <mat-error *ngIf="checkField('clave')">
+                    {{ FormLogin.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- APELLIDOS -->
+            <mat-form-field class="full-width-input">
+                <input formControlName="nuevaClave" matInput placeholder="Clave nueva" required />
+                <mat-error *ngIf="checkField('nuevaClave')">
+                    {{ FormLogin.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+          
+        </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button disableClose color="primary" (click)="onSave()" ckdFocusInitial
+        [disabled]="!FormLogin.valid">
+        Guardar
+    </button>
+</mat-dialog-actions>

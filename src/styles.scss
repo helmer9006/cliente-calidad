@@ -1,0 +1,57 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-card-header-text {
+    margin: 0 0 !important;
+    background-color: green !important;
+
+}
+
+.add {
+    position: fixed !important;
+    bottom: 30px !important;
+    right: 30px !important;
+}
+
+mat-form-field {
+    width: 300px;
+    padding-right: 20px;
+}
+
+.titulo {
+    margin-left: 20px 0 0 0 !important;
+    padding: 0px 0px 0px !important;
+    text-align: center;
+}
+
+.titulo2 {
+    padding-top: 20px;
+    text-align: center
+}
+
+.btn-200 {
+    width: 200px;
+    padding-left: 20px;
+}
+
+.img-user {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin: 5px auto;
+    display: block;
+}
+
+mat-slide-toggle {
+    margin: 8px auto;
+    display: block;
+}

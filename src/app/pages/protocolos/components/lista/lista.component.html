@@ -1,0 +1,76 @@
+<!-- <mat-grid-tile>
+        <mat-spinner></mat-spinner>
+    </mat-grid-tile> -->
+
+<h1 class="titulo"><strong>Listado de protocolos</strong></h1>
+<div style="display: flex; justify-content: space-between; padding-left: 20px;">
+    <button mat-raised-button color="primary" class="btn-200" routerLink="/protocolos/areas">
+        <mat-icon>keyboard_return</mat-icon>
+        Volver
+    </button>
+    <div class="buscar">
+        <mat-form-field>
+            <input matInput placeholder="Buscar" (keyup)="buscarProtocolo($event.target.value)" />
+        </mat-form-field>
+    </div>
+</div>
+
+<div style="min-height: 550px;">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+            <td mat-cell *matCellDef="let element"> {{dataSource.filteredData.indexOf(element)+1}}</td>
+        </ng-container>
+
+        <!-- Nombre Colum -->
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+            <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+        </ng-container>
+
+        <!-- ESPECIALIDAD Colum -->
+        <ng-container matColumnDef="especialidad">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
+            <td mat-cell *matCellDef="let element">{{ element.Especialidad.nombre }}</td>
+        </ng-container>
+
+        <!-- Creado Por Colum -->
+        <ng-container matColumnDef="creado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Creado por</th>
+            <td mat-cell *matCellDef="let element">{{ element.Usuario.nombres }} {{element.Usuario.apellidos}}</td>
+        </ng-container>
+        <!--createdAt-->
+        <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Creación</th>
+            <td mat-cell *matCellDef="let element">{{ element.createdAt | date:'dd/MM/yyyy' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+            <td mat-cell *matCellDef="let element">
+                <div class="table-button-row">
+                    <mat-icon mat-flat-button style="cursor: pointer;margin: 5px;" matTooltip="Editar usuario"
+                        color="accent">
+                        edit
+                    </mat-icon>
+                    <mat-icon class="icon" style="cursor: pointer;margin: 5px;" mat-flat-button color="warn"
+                        matTooltip="Eliminar usuario">
+                        delete
+                    </mat-icon>
+                    <mat-icon class="icon" style="cursor: pointer;margin: 5px;" mat-flat-button color="primary"
+                        matTooltip="Ver pdf">
+                        picture_as_pdf
+                    </mat-icon>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator style="margin: 0 18px" class="mat-elevation-z8" [pageSizeOptions]="[10, 20, 30]"
+        showFirstLastButtons>
+    </mat-paginator>
+</div>

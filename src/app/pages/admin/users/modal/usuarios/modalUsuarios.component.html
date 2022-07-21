@@ -1,0 +1,152 @@
+<h2 mat-dialog-title align="center">{{ data?.title }}</h2>
+<div>
+    <img *ngIf="previsualizacion" [src]="previsualizacion" width="100px" alt="Foto de perfil" style="margin: auto; display: block; border-radius: 100%;">
+</div>
+<mat-dialog-content>
+    <div class="modal-form">
+        <form [formGroup]="userForm.baseForm">
+
+            <!-- NOMBRE -->
+            <mat-form-field class="full-width-input">
+                <input formControlName="nombres" matInput placeholder="Nombres" required />
+                <mat-error *ngIf="checkField('nombres')">
+                    {{ userForm.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- APELLIDOS -->
+            <mat-form-field class="full-width-input">
+                <input formControlName="apellidos" matInput placeholder="Apellidos" required />
+                <mat-error *ngIf="checkField('apellidos')">
+                    {{ userForm.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- TIPO DOC -->
+            <mat-form-field class="full-width-input">
+                <mat-label>Elegir Tipo Doc.</mat-label>
+                <mat-select formControlName="tipoDoc">
+                    <mat-option value="CC">Cédula de iudadaníaa</mat-option>
+                    <mat-option value="CE">Cédula de extranjería</mat-option>
+                    <mat-option value="PEP">Permiso especial de permanencia</mat-option>
+
+                </mat-select>
+                <mat-error *ngIf="checkField('tipoDoc')">
+                    {{ userForm.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- DOC -->
+            <mat-form-field class="full-width-input">
+                <input formControlName="documento" matInput placeholder="Documento" required />
+                <mat-error *ngIf="checkField('documento')">
+                    {{ userForm.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- CLAVE -->
+            <mat-form-field class="full-width-input" *ngIf="showPasswordField">
+                <input [type]="hide ? 'password' : 'text'" formControlName="clave" matInput placeholder="Clave"
+                    required />
+                <button mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+                </button>
+                <mat-error *ngIf="checkField('clave')">
+                    {{ userForm.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!--FECHA NACIMIENTO-->
+            <mat-form-field class="full-width-input" color="accent" appearance="fill">
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlName="fechaNacimiento">
+                <mat-hint>DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                <mat-error *ngIf="checkField('fechaNacimiento')">
+                    {{ userForm.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- CELULAR -->
+            <mat-form-field class="full-width-input">
+                <input formControlName="celular" matInput placeholder="Celular" required />
+                <mat-error *ngIf="checkField('celular')">
+                    {{ userForm.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- CORREO -->
+            <mat-form-field class="full-width-input">
+                <input formControlName="correo" matInput placeholder="Correo" required />
+                <mat-error *ngIf="checkField('correo')">
+                    {{ userForm.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- PERFIL -->
+            <mat-form-field class="full-width-input">
+                <mat-label>Elegir perfil</mat-label>
+                <mat-select formControlName="perfil">
+                    <mat-option value="admin">Admin</mat-option>
+                    <mat-option value="especial">Especial</mat-option>
+                    <mat-option value="estandar">Estandar</mat-option>
+                </mat-select>
+                <mat-error *ngIf="checkField('perfil')">
+                    {{ userForm.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+
+
+            <!-- AREA -->
+            <mat-form-field class="full-width-input">
+                <mat-label>Elegir Área</mat-label>
+                <mat-select formControlName="idArea">
+                    <mat-option *ngFor="let area of areasList;let i=index" [value]="area.id">
+                        {{area.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="checkField('idArea')">
+                    {{ userForm.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- ESPECIALIDADES -->
+            <mat-form-field class="full-width-input">
+                <mat-label>Elegir Especialidad</mat-label>
+                <mat-select formControlName="idEspecialidad">
+                    <mat-option *ngFor="let especialidad of especialidadesList;let i=index" [value]="especialidad.id">
+                        {{especialidad.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="checkField('idEspecialidad')">
+                    {{ userForm.errorMessage }}
+
+                </mat-error>
+            </mat-form-field>
+
+            <!-- FOTO -->
+
+
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <div class="file-upload" (click)="fileUpload.click()">
+                <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+
+                {{fileName || "Aún no se ha seleccionado ninguna foto."}}
+
+            </div>
+
+
+        </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button disableClose color="primary" (click)="onSave()" ckdFocusInitial
+        [disabled]="!userForm.baseForm.valid">
+        {{ data.user?.id ? 'Actualizar' : 'Crear' }}
+    </button>
+</mat-dialog-actions>

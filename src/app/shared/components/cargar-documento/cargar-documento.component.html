@@ -1,0 +1,17 @@
+<p>cargar-documento!</p>
+<!-- Version = {{version.full}} <br /> -->
+<!-- <input type="file" (change)="upload($event.target.files)" />
+Upload Percent: {{percentDone}}% <br />
+
+<ng-container *ngIf="uploadSuccess">
+    Upload Successful
+</ng-container> -->
+
+
+<input type="file" (change)="capturarFile($event)" />
+<!-- previa de la imagen -->
+<div>
+    <img width="100px" [src]="previsualizacion" *ngIf="previsualizacion" alt="">
+</div>
+
+<button type="button" (click)="subirArchivo()" >subir</button>

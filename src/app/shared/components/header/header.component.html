@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+    <!-- <ng-container *ngIf="isAdmin === 'admin'"> -->
+    <ng-container *ngIf="isAdmin">
+        <button mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </ng-container>
+    <span>Sistema de calidad   {{isLogged}}</span>
+   
+    <span class="spacer"></span>
+    <a *ngIf="!isLogged; else viewLogout" mat-button routerLink="/login">Login</a>
+    <!-- <a *ngIf="isAdmin === 'admin'" mat-button routerLink="/admin">Admin</a> -->
+</mat-toolbar>
+
+<ng-template #viewLogout>
+    <!-- <a mat-button (click)="onLogout()">Logout</a> -->
+    <mat-icon class="icon" style="cursor: pointer;margin: 5px;" mat-flat-button color="#fff" (click)="onLogout()"
+        matTooltip="Cerrar sesión">
+        power_settings_new
+    </mat-icon>
+</ng-template>

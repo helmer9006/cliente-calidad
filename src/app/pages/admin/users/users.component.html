@@ -1,0 +1,121 @@
+<button mat-fab color="primary" (click)="onOpenModal()" matTooltip="Agregar protocolo" class="add">
+    <mat-icon>add</mat-icon>
+</button>
+<h1 class="titulo2"><strong>Listado de usuarios</strong></h1>
+<div class="buscar">
+    <mat-form-field>
+        <input matInput placeholder="Buscar" (keyup)="buscarUsuario($event.target.value)" />
+    </mat-form-field>
+</div>
+<div style="min-height: 550px;">
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- Nombres Colum -->
+    <ng-container matColumnDef="nombres">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+        <td mat-cell *matCellDef="let element">{{ element.nombres }}</td>
+    </ng-container>
+
+
+    <!-- Apellidos Column -->
+    <ng-container matColumnDef="apellidos">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido</th>
+        <td mat-cell *matCellDef="let element">{{ element.apellidos }}</td>
+    </ng-container>
+
+    <!-- Tipo Doc Column -->
+    <ng-container matColumnDef="tipoDoc">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo Doc.</th>
+        <td mat-cell *matCellDef="let element">{{ element.tipoDoc }}</td>
+    </ng-container>
+
+    <!--  Doc -->
+    <ng-container matColumnDef="documento">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Identidad</th>
+        <td mat-cell *matCellDef="let element">{{ element.documento }}</td>
+    </ng-container>
+
+    <!--  Correo -->
+    <ng-container matColumnDef="correo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+        <td mat-cell *matCellDef="let element">{{ element.correo }}</td>
+    </ng-container>
+
+    <!-- Fecha Nacimiento -->
+    <ng-container matColumnDef="fechaNacimiento">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Nac.</th>
+        <td mat-cell *matCellDef="let element">{{ element.fechaNacimiento | date }}</td>
+    </ng-container>
+
+    <!-- celular -->
+    <ng-container matColumnDef="celular">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Celular</th>
+        <td mat-cell *matCellDef="let element">{{ element.celular }}</td>
+    </ng-container>
+
+    <!--Perfil-->
+    <ng-container matColumnDef="perfil">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Perfil</th>
+        <td mat-cell *matCellDef="let element">{{ element.perfil }}</td>
+    </ng-container>
+
+    <!--Area-->
+    <ng-container matColumnDef="idArea">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Área</th>
+        <td mat-cell *matCellDef="let element">{{ element.Area.nombre }}</td>
+    </ng-container>
+
+    <!--Especialidad-->
+    <ng-container matColumnDef="idEspecialidad">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
+        <td mat-cell *matCellDef="let element">{{ element.Especialidad.nombre }}</td>
+    </ng-container>
+
+
+    <!--createdAt-->
+    <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Creación</th>
+        <td mat-cell *matCellDef="let element">{{ element.createdAt | date:'dd/MM/yyyy' }}</td>
+    </ng-container>
+
+    <!--estado-->
+    <!-- <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+        <td mat-cell *matCellDef="let element">{{ element.estado == 1 ? 'Activo' : 'Inactivo' }}</td>
+    </ng-container> -->
+    <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+        <td mat-cell><mat-slide-toggle *matCellDef="let element" color="primary" (change)="cambiarEstado($event.checked, element.id)"  [(ngModel)]="element.estado"></mat-slide-toggle></td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+        <td mat-cell *matCellDef="let element">
+            <div class="table-button-row">
+                <mat-icon mat-flat-button style="cursor: pointer;margin: 5px;" matTooltip="Editar usuario"
+                    color="accent" (click)="onOpenModal(element)">
+                    edit
+                </mat-icon>
+                <mat-icon class="icon" style="cursor: pointer;margin: 5px;" mat-flat-button color="warn"
+                    (click)="onDelete(element.id)" matTooltip="Eliminar usuario">
+                    delete
+                </mat-icon>
+                <mat-icon class="icon" style="cursor: pointer;margin: 5px;" mat-flat-button color="primary"
+                    (click)="onOpenModalCambioClave(element)" matTooltip="Cambiar clave">
+                    lock
+                </mat-icon>
+            </div>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<mat-paginator style="margin: 0 18px" class="mat-elevation-z8" [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons>
+</mat-paginator>
+</div>

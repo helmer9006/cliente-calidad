@@ -1,0 +1,27 @@
+.modal-form {
+    padding: 1rem 0;
+
+    .full-width-input {
+        width: 47%;
+        margin-top: 0px;
+        padding: 1.5%;
+    }
+
+    .mat-grid-tile {
+        background: lightblue;
+    }
+
+}
+
+.file-input {
+    display: none;
+}
+
+.file-upload {
+    display: inline-block;
+    padding: 10px;
+    border-style: dashed;
+    cursor: pointer;
+    margin: 1.5%;
+
+}

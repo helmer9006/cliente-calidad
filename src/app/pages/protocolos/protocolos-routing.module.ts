@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProtocolosComponent } from './protocolos.component';
 import { ListaComponent } from './components/lista/lista.component';
 import { BaseComponent } from './components/base/base.component';
+import { VisorComponent } from './components/visor-pdf/visor.component';
 
 
 const routes: Routes =
@@ -21,10 +22,10 @@ const routes: Routes =
                     path: 'listado/:idArea', component: ListaComponent,
                     // canActivate: [CheckLoginGuard!], canLoad: [!CheckLoginGuard!],
                 },
-                // {
-                //     path: 'verpdf', component: OutputPdfComponent,
-                //     // canActivate: [CheckLoginGuard!], canLoad: [!CheckLoginGuard!],
-                // },
+                {
+                    path: 'visor/:url', component: VisorComponent,
+                    // canActivate: [CheckLoginGuard!], canLoad: [!CheckLoginGuard!],
+                },
 
             ]
         }

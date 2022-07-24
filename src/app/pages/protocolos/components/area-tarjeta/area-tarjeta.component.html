@@ -1,5 +1,5 @@
 <!-- <mat-card [routerLink]="['/users', '/editar', area?.id]"> -->
-<mat-card  [routerLink]="['/protocolos/listado', area.id ]">
+<mat-card [routerLink]="['/protocolos/listado', area.id ]">
     <img [src]="area | imagen" alt="">
     <mat-card-header>
         <mat-card-title>{{area.nombre}}</mat-card-title>
@@ -11,5 +11,5 @@
     <mat-card-actions>
         <!-- <button mat-button mat-Stroked-button color="primary">Ver protocolos</button> -->
     </mat-card-actions>
-
+    <pdf-viewer [src]="pdfSrc" [render-text]="true" style="display: block;" [original-size]="false"></pdf-viewer>
 </mat-card>

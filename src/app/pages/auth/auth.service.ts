@@ -56,7 +56,6 @@ export class AuthService {
             }
             isExpired ? this.logout() : this.user.next(user); //si el token está  vencido cerramos sesión
         } else {
-            window.alert("Sesión caducada");
             this.logout();
         }
 

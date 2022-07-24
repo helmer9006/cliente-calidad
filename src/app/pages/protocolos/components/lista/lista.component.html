@@ -59,7 +59,7 @@
                         matTooltip="Eliminar usuario">
                         delete
                     </mat-icon>
-                    <mat-icon class="icon" style="cursor: pointer;margin: 5px;" mat-flat-button color="primary"
+                    <mat-icon class="icon" style="cursor: pointer;margin: 5px;" [routerLink]="['/protocolos/visor', element.url ]" mat-flat-button color="primary"
                         matTooltip="Ver pdf">
                         picture_as_pdf
                     </mat-icon>

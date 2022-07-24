@@ -29,13 +29,13 @@ import { SpinnerInterceptorService } from '@shared/interceptors/spinner-intercep
     declarations: [AppComponent, HeaderComponent, FooterComponent],
     imports: [
         BrowserModule,
-        AppRoutingModule,
         BrowserAnimationsModule,
-        MaterialModule,
-        SidebarModule,
         HttpClientModule,
         ReactiveFormsModule,
         FlexLayoutModule,
+        AppRoutingModule,
+        MaterialModule,
+        SidebarModule,
         ToastrModule.forRoot({
             timeOut: 1000,
             positionClass: 'toast-bottom-right'

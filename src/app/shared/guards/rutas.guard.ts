@@ -3,7 +3,6 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanL
 import { Observable } from 'rxjs';
 import { AuthService } from '../../pages/auth/auth.service';
 import { map, take, tap } from 'rxjs/operators';
-import router from '../../../../API/src/routes/auth';
 import { RespuestaLogin } from '../models/usuarios.interface';
 
 @Injectable({

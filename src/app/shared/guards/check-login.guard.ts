@@ -4,7 +4,6 @@ import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '@auth/auth.service';
 import { take, map } from 'rxjs/operators';
-import router from '../../../../API/src/routes/auth';
 
 @Injectable({
     providedIn: 'root',

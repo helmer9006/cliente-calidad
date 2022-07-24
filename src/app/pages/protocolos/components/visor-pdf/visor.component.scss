@@ -1,0 +1,27 @@
+pdf-viewer {
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    filter: drop-shadow(5px 5px 5px #222222);
+}
+
+style container .app-headerPdf {
+    // padding-top: 90px;
+
+    // overflow: auto;
+    // position: relative;
+    background-color: rgba(#ddd, 0.5);
+
+    // pdf viewer overwriting styles
+    ::ng-deep {
+        .pdfViewer {
+            .page {
+                border: none;
+                border-image: none;
+                -webkit-border-image: none;
+                box-shadow: 1px 0 5px -3px rgba(#000, 0.2);
+                margin-bottom: 15px;
+            }
+        }
+    }
+}

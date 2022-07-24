@@ -1,0 +1,13 @@
+<div style="margin-top: 100px;">
+    <app-headerPdf 
+    [zoomAmt]="zoom" 
+    [zoomMax]="zoomMax" 
+    [zoomMin]="zoomMin" 
+    (setZoom)="setZoom($event)"
+     >
+
+    </app-headerPdf>
+    <pdf-viewer appDisableRightClick [src]="pdfSrc" [render-text]="false" [show-all]="true" [page]="page"
+        [zoom-scale]="zoomScale" [zoom]="zoom" [autoresize]="true" [stick-to-page]="true"
+        style="width: 100%; height: 100vh; display: block;"></pdf-viewer>
+</div>

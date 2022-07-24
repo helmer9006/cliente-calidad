@@ -11,12 +11,14 @@ import { AreaTarjetaComponent } from './components/area-tarjeta/area-tarjeta.com
 import { ListaComponent } from './components/lista/lista.component';
 import { ImagenPipe } from './pipes/imagen.pipe';
 import { BaseComponent } from './components/base/base.component';
+import { VisorComponent } from './components/visor-pdf/visor.component';
+import { DisableRightClickDirective } from './highlight.directive';
+import { HeaderPdfComponent } from './components/header/headerPdf.component';
 
 @NgModule({
-    declarations: [ProtocolosComponent, AreaTarjetaComponent, ListaComponent, ImagenPipe, BaseComponent],
+    declarations: [ProtocolosComponent, AreaTarjetaComponent, ListaComponent, ImagenPipe, BaseComponent, VisorComponent, DisableRightClickDirective, HeaderPdfComponent],
     imports: [CommonModule, ProtocolosRoutingModule, MaterialModule, FormsModule,
-        ReactiveFormsModule, ProtocolosRoutingModule,PdfViewerModule,
-        FlexLayoutModule
+        ReactiveFormsModule, ProtocolosRoutingModule,PdfViewerModule, FlexLayoutModule, 
     ],
 })
 export class ProtocolosModule { }

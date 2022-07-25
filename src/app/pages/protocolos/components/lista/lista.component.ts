@@ -5,39 +5,51 @@ import { environment } from '@env/environment';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder, Validators } from '@angular/forms';
 
-import { Subject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { SpinnerService } from '../../../../shared/services/spinner.service';
+import { Subject, Subscription } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { ModalProtocoloComponent } from '../modal-protocolo/modal-protocolo.component';
+import { UsersService } from '../../../admin/services/users.service';
 @Component({
     selector: 'app-lista',
     templateUrl: './lista.component.html',
     styleUrls: ['./lista.component.scss']
 })
 export class ListaComponent implements AfterViewInit, OnInit, OnDestroy {
-    idArea: number;
+    idArea: string;
     displayedColumns: string[] = ['id', 'nombre', 'especialidad', 'creado', 'createdAt', 'actions'];
     dataSource = new MatTableDataSource();
-
+    user: any;
     private destroy$ = new Subject<any>();
+    errorMessage = null;
+
+
+
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(
         private activateRouter: ActivatedRoute,
-        private protocolosSrv: ProtocolosService,
-        private spinnerSrv: SpinnerService,
+        private protocolosSvc: ProtocolosService,
+        private dialog: MatDialog,
+        private fb: FormBuilder
     ) { }
 
+
     ngOnInit(): void {
-        const user = JSON.parse(localStorage.getItem('user'));
+        this.user = JSON.parse(localStorage.getItem('user'));
         //capturo el id del area como param y hago la petición al api
         this.activateRouter.params
-            .pipe(switchMap(({ idArea }) => this.protocolosSrv.getProtocolos(idArea, user.idEspecialidad, environment.EMPTY))).subscribe
+            .pipe(switchMap(({ idArea }) => (
+                this.idArea = idArea,
+                this.protocolosSvc.getProtocolos(idArea, this.user.idEspecialidad, environment.EMPTY)))).subscribe
             (protocolos => {
                 if (!protocolos.status) {
                     window.alert("Error al cargar los protocolos");
                 }
+
                 this.dataSource.data = protocolos.response
             }
             );
@@ -51,10 +63,45 @@ export class ListaComponent implements AfterViewInit, OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next({});
         this.destroy$.complete();
+
     }
 
     buscarProtocolo(filterValue: string): void {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
+
+    onOpenModal(protocolo = {}): void {
+
+        let dialogRef = this.dialog.open(ModalProtocoloComponent, {
+            height: '60%',
+            width: '30%',
+            hasBackdrop: false,
+            data: { title: 'Nuevo protocolo', protocolo },
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${result}`, typeof result);
+            //despues de cerrar el modal de agregar o editar actualiza los usaurios
+            this.protocolosSvc.getProtocolos(this.idArea, this.user.idEspecialidad, environment.EMPTY).subscribe((protocolos) => {
+                this.dataSource.data = protocolos.response;
+            });
+        });
+    }
+
+    onDelete(id: number): void {
+        if (window.confirm('¿De verdad quieres eliminar este protocolo?')) {
+            this.protocolosSvc
+                .eliminarProtocolo(id)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe((res) => {
+                    window.alert(res.msg);
+                    // actualizar resultado despues de eliminar usuario
+                    this.protocolosSvc.getProtocolos(this.idArea, this.user.idEspecialidad, environment.EMPTY).subscribe((protocolos) => {
+                        this.dataSource.data = protocolos.response;
+                    });
+                });
+        }
+    }
+
 
 }

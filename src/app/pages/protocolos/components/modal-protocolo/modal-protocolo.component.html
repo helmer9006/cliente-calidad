@@ -1,0 +1,62 @@
+<mat-dialog-content>
+    <div class="modal-form">
+        <h2 mat-dialog-title align="center">{{ data?.title }}</h2>
+        <form [formGroup]="FormProtocolo">
+
+            <!-- NOMBRE -->
+            <mat-form-field class="full-width-input">
+                <input formControlName="nombre" matInput placeholder="Nombre" required />
+                <mat-error *ngIf="checkField('nombre')">
+                    {{ FormProtocolo.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- ESPECIALIDADES -->
+            <mat-form-field class="full-width-input">
+                <mat-label>Elegir Especialidad</mat-label>
+                <mat-select formControlName="idEspecialidad">
+                    <mat-option *ngFor="let especialidad of especialidadesList;let i=index" [value]="especialidad.id">
+                        {{especialidad.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="checkField('idEspecialidad')">
+                    {{ FormProtocolo.errorMessage }}
+
+                </mat-error>
+            </mat-form-field>
+
+            <!-- AREA -->
+            <mat-form-field class="full-width-input">
+                <mat-label>Elegir Área</mat-label>
+                <mat-select formControlName="idArea">
+                    <mat-option *ngFor="let area of areasList;let i=index" [value]="area.id">
+                        {{area.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="checkField('idArea')">
+                    {{ FormProtocolo.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- DOCUMENTO PDF -->
+            <input accept="application/pdf" type="file" class="file-input" (change)="onFileSelected($event)"
+                #fileUpload>
+            <div class="file-upload spacer" (click)="fileUpload.click()">
+                <button mat-mini-fab [color]="color" class="upload-btn" (click)="fileUpload.click()">
+                    <mat-icon>file_upload</mat-icon>
+                </button>
+
+                {{fileName || "Aún no se ha seleccionado ningún pdf."}}
+                <!-- <mat-icon color="primary" style="padding: 0.7rem;" >{{loading ? 'done_all' : 'done_all'}}</mat-icon> -->
+            </div>
+
+        </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button disableClose color="primary" (click)="onSave()" ckdFocusInitial
+        [disabled]="!FormProtocolo.valid">
+        {{ data.protocolo?.id ? 'Actualizar' : 'Crear' }}
+    </button>
+</mat-dialog-actions>

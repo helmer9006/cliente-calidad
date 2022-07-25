@@ -59,3 +59,12 @@ mat-slide-toggle {
 .mat-h2, .mat-title, .mat-typography h2 {
     margin: 0 0 5px !important;
 }
+
+.spacer {
+    flex: 1 1 auto;
+  }
+
+  .mat-nav-list a.active {
+    background-color: #3F51B5!important;
+    color: #fff !important;
+}

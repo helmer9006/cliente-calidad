@@ -127,9 +127,7 @@
             </mat-form-field>
 
             <!-- FOTO -->
-
-
-            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <input accept= "image/*" type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
             <div class="file-upload" (click)="fileUpload.click()">
                 <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
                     <mat-icon>attach_file</mat-icon>

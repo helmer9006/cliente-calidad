@@ -1,8 +1,8 @@
-import { Component, VERSION, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, VERSION, ElementRef, Inject, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 import { BaseFormUser } from '@shared/utils/base-form-user';
-
+import { Subject, Subscription } from 'rxjs';
 import { UsersService } from '../../../services/users.service';
 import { AreasService } from '../../../services/areas.service';
 import { EspecialidadesService } from '../../../services/especialidades.service';
@@ -28,7 +28,6 @@ export class ModalComponent implements OnInit {
     name = 'Angular ' + VERSION.major;
     FotoSelected: string;
     previsualizacion: string;
-
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         public userForm: BaseFormUser,
@@ -37,6 +36,8 @@ export class ModalComponent implements OnInit {
         private especialidadesSvc: EspecialidadesService,
         private MatDialog: MatDialog
     ) { }
+
+
 
     ngOnInit(): void {
         this.areasSvc.getAll().subscribe((res) => {
@@ -48,6 +49,7 @@ export class ModalComponent implements OnInit {
         })
 
         if (this.data?.user.hasOwnProperty('id')) {
+            console.log("data", this.data);
             this.actionTODO = Action.EDIT;
             this.showPasswordField = false;
             this.textButton = 'Actualizar';
@@ -125,7 +127,6 @@ export class ModalComponent implements OnInit {
                     let imgBase64Path = e.target.result;
                     this.userForm.baseForm.get("foto").setValue(imgBase64Path);
                     this.previsualizacion = imgBase64Path;
-                    console.log(this.previsualizacion);
                 };
             };
             reader.readAsDataURL(event.target.files[0]);

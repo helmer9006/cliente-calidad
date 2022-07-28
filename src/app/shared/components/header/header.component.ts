@@ -1,4 +1,4 @@
-import { RespuestaLogin } from '../../models/usuarios.interface';
+import { RespuestaLogin, Usuario } from '../../models/usuarios.interface';
 import {
   Component,
   OnInit,
@@ -18,12 +18,13 @@ import { takeUntil } from 'rxjs/operators';
 export class HeaderComponent implements OnInit, OnDestroy {
   isAdmin = null;
   isLogged = false;
-
+  usuarioLogueado: Usuario
   private destroy$ = new Subject<any>();
 
   @Output() toggleSidenav = new EventEmitter<void>();
 
-  constructor(private authSvc: AuthService) {}
+  constructor(private authSvc: AuthService) {
+  }
 
   ngOnInit(): void {
     this.authSvc.user$
@@ -32,6 +33,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isLogged = user ? true : false;
         this.isAdmin = user?.response.perfil;
       });
+
+      this.usuarioLogueado = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+      console.log("usuarioLogueado")
   }
 
   ngOnDestroy(): void {

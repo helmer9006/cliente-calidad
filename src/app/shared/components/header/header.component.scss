@@ -6,3 +6,23 @@ a {
   text-decoration: none;
   color: #fff;
 }
+
+img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.perfil{
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    top: 8%;
+    right: 0;
+    width:150px;
+    // margin-left: 10px;
+    height: auto;
+    background-color: #333;
+    padding: 10px;
+    color: #fff;
+}

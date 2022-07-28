@@ -1,4 +1,4 @@
-import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
@@ -24,9 +24,11 @@ import localeEsCo from '@angular/common/locales/es-CO';
 registerLocaleData(localeEsCo, 'es-CO');
 import { InterceptorService } from '@shared/interceptors/interceptor.service';
 import { SpinnerInterceptorService } from '@shared/interceptors/spinner-interceptor.service';
+import { ImagenPipeUsuario } from './shared/components/header/pipes/imagen.pipe';
+
 @NgModule({
 
-    declarations: [AppComponent, HeaderComponent, FooterComponent],
+    declarations: [AppComponent, HeaderComponent, FooterComponent, ImagenPipeUsuario],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

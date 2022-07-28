@@ -5,17 +5,24 @@
             <mat-icon>menu</mat-icon>
         </button>
     </ng-container>
-    <span>Sistema de calidad</span>
-   
+    <span class="titulo3">Sistema de calidad</span>
+
     <span class="spacer"></span>
-    <a *ngIf="!isLogged; else viewLogout" mat-button routerLink="/login">Login</a>
+    <a *ngIf="!isLogged; else viewLogout" mat-button routerLink="/login">Iniciar sesión</a>
     <!-- <a *ngIf="isAdmin === 'admin'" mat-button routerLink="/admin">Admin</a> -->
 </mat-toolbar>
-
 <ng-template #viewLogout>
-    <!-- <a mat-button (click)="onLogout()">Logout</a> -->
-    <mat-icon class="icon" style="cursor: pointer;margin: 5px;" mat-flat-button color="#fff" (click)="onLogout()"
-        matTooltip="Cerrar sesión">
-        power_settings_new
-    </mat-icon>
+    <button mat-button [matMenuTriggerFor]="logout">
+        <img [src]="usuarioLogueado | imagen" (click)="ver = true" class="img-user" alt="imagen usuario">
+    </button>
+    <mat-menu #logout="matMenu">
+        <button mat-menu-item (click)="onLogout()">
+            Cerrar sesión
+            <span class="spacer"></span>
+            <mat-icon #div style="cursor: pointer;margin: 5px;" mat-flat-button color="#fff" 
+                matTooltip="Cerrar sesión">
+                power_settings_new
+            </mat-icon>
+        </button>
+      </mat-menu>
 </ng-template>

@@ -47,7 +47,7 @@ export class AuthService {
         this.utilsSvc.openSidebar(false);
     }
 
-    private checkToken(): void {
+    public checkToken(): void {
         const user = JSON.parse(localStorage.getItem('user')) || null;
         if (user) {
             const isExpired = helper.isTokenExpired(user.response.token);

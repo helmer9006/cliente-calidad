@@ -1,44 +1,37 @@
-<div class="login-form">
-  <mat-card>
-    <mat-card-content>
-      <h1 class="text1">Iniciar sesión</h1>
-      <form [formGroup]="FormLogin" (ngSubmit)="onLogin()">
-        <mat-form-field class="full-width-input separator">
-          <input
-            text="text"
-            formControlName="correo"
-            matInput
-            placeholder="Correo"
-            required
-          />
-          <mat-error *ngIf="checkField('correo')">
-            {{ FormLogin.errorMessage }}
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width-input separator">
-          <input
-            [type]="hide ? 'password' : 'text'"
-            formControlName="clave"
-            matInput
-            placeholder="Clave"
-            required
-          />
-          <button mat-icon-button matSuffix (click)="hide = !hide">
-            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-          </button>
-          <mat-error *ngIf="checkField('clave')">
-            {{ FormLogin.errorMessage }}
-          </mat-error>
-        </mat-form-field>
-        <button
-          [disabled]="FormLogin.invalid"
-          type="submit"
-          mat-raised-button
-          color="primary"
-        >
-          Iniciar
-        </button>
-      </form>
-    </mat-card-content>
-  </mat-card>
+<div fxLayout="row wrap">
+    <!-- llamo al componente area tarjeta y le paso el objeto area -->
+
+    <div fxFlex="50" fxFlex.lg="50" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5% 0 5% 5%;">
+        <img mat-card-image style="display: block; height: 80%;"
+            src="./assets/images/clinical.svg" alt="Clinical">
+    </div>
+
+    <div class="login-form" fxFlex="50" fxFlex.lg="50" fxFlex.sm="50" fxFlex.xs="100" style="padding: 5%;">
+        <mat-card>
+            <mat-card-content>
+                <h1 class="text1">Iniciar sesión</h1>
+                <form [formGroup]="FormLogin" (ngSubmit)="onLogin()">
+                    <mat-form-field class="full-width-input separator">
+                        <input text="text" formControlName="correo" matInput placeholder="Correo" required />
+                        <mat-error *ngIf="checkField('correo')">
+                            {{ FormLogin.errorMessage }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="full-width-input separator">
+                        <input [type]="hide ? 'password' : 'text'" formControlName="clave" matInput placeholder="Clave"
+                            required />
+                        <button mat-icon-button matSuffix (click)="hide = !hide">
+                            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="checkField('clave')">
+                            {{ FormLogin.errorMessage }}
+                        </mat-error>
+                    </mat-form-field>
+                    <button [disabled]="FormLogin.invalid" type="submit" mat-raised-button color="primary">
+                        Iniciar
+                    </button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

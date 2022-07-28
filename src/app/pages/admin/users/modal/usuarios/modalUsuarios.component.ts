@@ -6,6 +6,7 @@ import { Subject, Subscription } from 'rxjs';
 import { UsersService } from '../../../services/users.service';
 import { AreasService } from '../../../services/areas.service';
 import { EspecialidadesService } from '../../../services/especialidades.service';
+import { AuthService } from '../../../../auth/auth.service';
 
 
 enum Action {
@@ -34,7 +35,8 @@ export class ModalComponent implements OnInit {
         private userSvc: UsersService,
         private areasSvc: AreasService,
         private especialidadesSvc: EspecialidadesService,
-        private MatDialog: MatDialog
+        private MatDialog: MatDialog,
+        private authSvc: AuthService
     ) { }
 
 
@@ -103,6 +105,7 @@ export class ModalComponent implements OnInit {
 
                 if (res.status) {
                     this.MatDialog.closeAll();
+                    this.authSvc.checkToken();
                 }
             });
         }

@@ -42,7 +42,13 @@ const routes: Routes = [
         canActivate: [RutasGuard],
 
     },
-    { path: '**', redirectTo: '' },
+    {
+        path: 'configuracion',
+        loadChildren: () =>
+            import('./pages/configuracion/configuracion.module').then((m) => m.ConfiguracionModule),
+        canActivate: [RutasGuard],
+    },
+    { path: '**', redirectTo: '/dashboard' },
 
 ];
 

@@ -19,7 +19,7 @@ import { UsersService } from '../../../admin/services/users.service';
 })
 export class ListaComponent implements AfterViewInit, OnInit, OnDestroy {
     idArea: string;
-    displayedColumns: string[] = ['id', 'nombre', 'especialidad', 'creado', 'createdAt', 'actions'];
+    displayedColumns: string[] = ['id', 'nombre', 'especialidad', 'creado', 'createdAt', 'acciones'];
     dataSource = new MatTableDataSource();
     user: any;
     private destroy$ = new Subject<any>();

@@ -1,0 +1,51 @@
+
+<mat-dialog-content>
+    <div class="modal-form">
+        <h2 mat-dialog-title align="center">{{ data?.title }}</h2>
+
+        <form [formGroup]="FormAreas">
+
+            <!-- NOMBRE -->
+            <mat-form-field class="full-width-input">
+                <input formControlName="nombre" matInput placeholder="Nombre" required />
+                <mat-error *ngIf="checkField('nombre')">
+                    {{ FormAreas.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- UBICACION -->
+            <mat-form-field class="full-width-input">
+                <input formControlName="ubicacion" matInput placeholder="Ubicación" required />
+                <mat-error *ngIf="checkField('ubicacion')">
+                    {{ FormAreas.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+            <!-- DOCUMENTO PDF -->
+            <input accept="image/*" type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <div fxLayout="row wrap">
+                <div class="file-upload" fxFlex="45" fxFlex.lg="50" fxFlex.sm="50" fxFlex.xs="100" (click)="fileUpload.click()">
+                    <button mat-mini-fab [color]="color" class="upload-btn" (click)="fileUpload.click()">
+                        <mat-icon>file_upload</mat-icon>
+                    </button>
+                    {{fileName || "Seleccionar imagen."}}
+                </div>
+                <div align="center" fxFlex="45" fxFlex.lg="50" fxFlex.sm="50" fxFlex.xs="100">
+                    <img [src]="visualizarImagenArea" alt="imagen área">
+                </div>
+            </div>
+
+
+
+
+        </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button disableClose color="primary" (click)="onSave()" ckdFocusInitial
+        [disabled]="!FormAreas.valid">
+        {{ data.area?.id >= 0 ? 'Actualizar' : 'Crear' }}
+    </button>
+
+</mat-dialog-actions>

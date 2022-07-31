@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminComponent } from './admin.component';
-import { UsersModule } from './users/users.module';
 import { CargarArchivoComponent } from '../../shared/components/cargar-archivo/cargar-archivo.component';
 
 const routes: Routes = [

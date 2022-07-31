@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ProtocolosService } from '@app/pages/admin/services/protocolos.service';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AreasService } from '../../../admin/services/areas.service';
 import { EspecialidadesService } from '../../../admin/services/especialidades.service';
 import { DocumentosService } from '../../../admin/services/documentos.service';
@@ -144,7 +144,6 @@ export class ModalProtocoloComponent implements OnInit, OnDestroy {
             // formularioDeDatos.append('_id', 'MY_ID_123')
             this.cargarDocSvc.createDocumento(formularioDeDatos)
                 .subscribe(res => {
-                    debugger;
                     if (res.status) {
                         window.alert(res.msg);
                         this.loading = false;

@@ -1,0 +1,26 @@
+
+<mat-dialog-content>
+    <div class="modal-form">
+        <h2 mat-dialog-title align="center">{{ data?.title }}</h2>
+
+        <form [formGroup]="FormEspecialidades">
+
+            <!-- NOMBRE -->
+            <mat-form-field class="full-width-input">
+                <input formControlName="nombre" matInput placeholder="Nombre" required />
+                <mat-error *ngIf="checkField('nombre')">
+                    {{ FormEspecialidades.errorMessage }}
+                </mat-error>
+            </mat-form-field>
+
+        </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button disableClose color="primary" (click)="onSave()" ckdFocusInitial
+        [disabled]="!FormEspecialidades.valid">
+        {{ data.area?.id >= 0 ? 'Actualizar' : 'Crear' }}
+    </button>
+
+</mat-dialog-actions>

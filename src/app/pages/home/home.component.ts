@@ -9,5 +9,7 @@ import { AuthService } from '@auth/auth.service';
 export class HomeComponent implements OnInit {
   constructor(public authSvc: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 }

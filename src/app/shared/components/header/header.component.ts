@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
 
       this.usuarioLogueado = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
-      console.log("usuarioLogueado")
+      console.log("usuarioLogueado", this.usuarioLogueado)
   }
 
   ngOnDestroy(): void {

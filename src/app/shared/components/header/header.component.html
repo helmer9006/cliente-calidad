@@ -12,7 +12,7 @@
     <!-- <a *ngIf="isAdmin === 'admin'" mat-button routerLink="/admin">Admin</a> -->
 </mat-toolbar>
 <ng-template #viewLogout>
-    <p style="font-size: 16px; margin: auto; display: block;" *ngIf="(authSvc.user$ | async) as usuario">Hola, {{usuario.response.nombre}}</p>
+    <p style="font-size: 16px; margin: auto; display: block;" *ngIf="(utilsSvc.sizeDisplay == 'web')">Hola, {{usuarioLogueado.response.nombre}}</p>
     <button mat-button [matMenuTriggerFor]="logout">
         <img [src]="usuarioLogueado | imagen" (click)="ver = true" class="img-user" alt="imagen usuario">
     </button>

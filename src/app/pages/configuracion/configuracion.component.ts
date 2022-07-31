@@ -1,20 +1,16 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
 import { AreasService } from '../admin/services/areas.service';
 import { EspecialidadesService } from '../admin/services/especialidades.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { FormBuilder } from '@angular/forms';
 import { Subject, Observable } from 'rxjs';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 
-
-import { AuthService } from '../auth/auth.service';
-import { map, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { ModalEspecialidadComponent } from './components/modal-especialidad/modal-especialidad.component';
 import { ModalAreaComponent } from './components/modal-area/modal-area.component';
+import { UtilsService } from '@app/shared/services/utils.service';
 
 @Component({
     selector: 'app-configuracion',
@@ -26,8 +22,8 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
         private areasSvc: AreasService,
         private especialidadesSvc: EspecialidadesService,
         private dialog: MatDialog,
-        private breakObsrv: BreakpointObserver
-    ) { this.mediaQuery(); }
+        private utilsSvc: UtilsService,
+    ) { }
 
     displayedColumnsAreas: string[] = ['id', 'nombre', 'ubicacion', 'creado', 'actualizado', 'acciones'];
     dataSourceAreas = new MatTableDataSource();
@@ -38,9 +34,6 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
     errorMessage = null;
     areasList = [];
     especialidadesList = [];
-    Landscape;
-    esPantallagrande$: Observable<boolean>;
-    public sizeDisplay: string = 'phone' || 'web';
 
     @ViewChild('MatSortAreas') MatSortAreas = new MatSort();
     @ViewChild('MatPaginatorAreas', { read: MatPaginator }) MatPaginatorAreas: MatPaginator;
@@ -60,11 +53,6 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
             } else {
                 window.alert("Error al cargar las áreas");
             }
-            //validar si la pantalla es mobile
-            this.esPantallagrande$ = this.breakObsrv.observe([Breakpoints.Small])
-                .pipe(map(result => result.matches));
-
-
         });
 
         this.especialidadesSvc.getAll().subscribe(res => {
@@ -134,8 +122,8 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
     onOpenModalArea(area = {}): void {
 
         let dialogRef = this.dialog.open(ModalAreaComponent, {
-            height: this.sizeDisplay === 'phone' ? '80%' : '60%',
-            width:  this.sizeDisplay === 'phone' ? '80%' : '30%',
+            height: this.utilsSvc.sizeDisplay === 'phone' ? '80%' : '60%',
+            width:  this.utilsSvc.sizeDisplay === 'phone' ? '80%' : '30%',
             hasBackdrop: false,
             data: { title: 'Nueva área', area },
         });
@@ -152,8 +140,8 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
     onOpenModalEspecialidad(especialidad = {}): void {
 
         let dialogRef = this.dialog.open(ModalEspecialidadComponent, {
-            height: this.sizeDisplay === 'phone' ? '80%' : '40%',
-            width:  this.sizeDisplay === 'phone' ? '80%' : '25%',
+            height: this.utilsSvc.sizeDisplay === 'phone' ? '80%' : '40%',
+            width:  this.utilsSvc.sizeDisplay === 'phone' ? '80%' : '25%',
             hasBackdrop: false,
             data: { title: 'Nueva especialidad', especialidad },
         });
@@ -166,30 +154,5 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
             });
         });
     }
-
-    public mediaQuery() {
-
-        this.breakObsrv
-            .observe(Breakpoints.Small)
-            .subscribe((state: BreakpointState) => {
-                if (state.matches) {
-                    //AQUI SERA TRUE SOLO SI ESTA EN RESOLUCION DE CELULAR
-                    this.sizeDisplay = 'phone';
-                }
-            });
-
-        this.breakObsrv
-            .observe(Breakpoints.Web)
-            .subscribe((state: BreakpointState) => {
-                if (state.matches) {
-                    //AQUI SERA TRUE SOLO SI ES RESOLUCION PARA WEB
-                    this.sizeDisplay = 'web';
-                }
-            });
-    }
-
-
-
-
 
 }

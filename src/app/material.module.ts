@@ -22,7 +22,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 const myModules = [
     MatToolbarModule,
@@ -48,6 +48,7 @@ const myModules = [
     MatFormFieldModule,
     MatSlideToggleModule,
     MatTabsModule,
+    MatAutocompleteModule
 
 ];
 

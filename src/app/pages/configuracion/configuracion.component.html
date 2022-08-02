@@ -1,8 +1,28 @@
 <div style="padding: 20px;">
     <mat-tab-group animationDuration="0ms" mat-align-tabs="center">
-        <!-- AREAS -->
+        <!-- PERFIL -->
+        <mat-tab label="PERFIL">
+            <div class="div-perfil">
+                <div class="div-img">
+                    <img [src]="usuarioLogin.foto" alt="foto perfil">
+                    <div class="div-editar-imagen" (click)="fileUpload.click()"><span>Cambiar imagen</span></div>
+                </div>
+                <p><strong>Nombre:</strong> {{usuarioLogin.nombre}}</p>
+                <p><strong>Fecha Nacimiento:</strong> {{usuarioLogin.fechaNacimiento | date:'dd/MM/yyyy'}}</p>
+                <p><strong>Correo:</strong> {{usuarioLogin.correo}}</p>
+                <p><strong>Fecha de Creación: </strong> {{usuarioLogin.createdAt | date:'dd/MM/yyyy'}}</p>
+                <p><strong>Documento:</strong> {{usuarioLogin.documento}}</p>
+                <p><strong>Celular:</strong> {{usuarioLogin.celular}}</p>
 
-        <mat-tab label="ÁREAS">
+            </div>
+
+            <input accept="image/*" type="file" class="file-input" (change)="onFileSelectedImagenPerfil($event)"
+                #fileUpload>
+        </mat-tab>
+
+        <!-- ÁREAS -->
+        <mat-tab label="ÁREAS" *ngIf="usuarioLogin.perfil != 'estandar'">
+            <!-- AREAS -->
             <!-- boton agregar área -->
             <button mat-fab color="primary" matTooltip="Agregar área" class="add" (click)="onOpenModalArea()">
                 <mat-icon>
@@ -75,9 +95,10 @@
         </mat-tab>
 
         <!-- ESPECIALIDADES -->
-        <mat-tab label="ESPECIALIDADES">
+        <mat-tab label="ESPECIALIDADES" *ngIf="usuarioLogin.perfil != 'estandar'">
             <!-- boton agregar especialidad -->
-            <button mat-fab color="primary" matTooltip="Agregar especialidad" class="add" (click)="onOpenModalEspecialidad()">
+            <button mat-fab color="primary" matTooltip="Agregar especialidad" class="add"
+                (click)="onOpenModalEspecialidad()">
                 <mat-icon>
                     add
                 </mat-icon>
@@ -142,6 +163,76 @@
                     class="mat-elevation-z8" [pageSizeOptions]="[20, 30, 40]" showFirstLastButtons>
                 </mat-paginator>
             </div>
+        </mat-tab>
+
+        <!-- LOGS -->
+
+        <mat-tab label="LOGS">
+            <div class="div-logs">
+                <form [formGroup]="FormLogs" (ngSubmit)="onSubmit()">
+                    <!--FECHA INICIAL-->
+                    <mat-form-field class="full-width-input" color="accent" appearance="fill">
+                        <mat-label>Fecha de Inicial</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="fechaInicial">
+                        <mat-hint>DD/MM/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                    </mat-form-field>
+
+                    <!--FECHA FINAL-->
+
+                    <mat-form-field class="full-width-input" color="accent" appearance="fill">
+                        <mat-label>Fecha Final</mat-label>
+                        <input matInput [matDatepicker]="picker2" formControlName="fechaFinal">
+                        <mat-hint>DD/MM/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Usuario</mat-label>
+                        <input type="text" placeholder="Buscar usuario" aria-label="Usuario" matInput
+                            formControlName="usuarioId" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this)">
+                            <mat-option *ngFor="let user of filteredOptions | async" [value]="user.id">
+                                {{user.nombres}} {{user.apellidos}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" type="submit">Buscar</button>
+                </form>
+
+                <hr>
+                <table mat-table [dataSource]="dataSourceLogs" class="mat-elevation-z8">
+
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let element">{{dataSourceLogs.filteredData.indexOf(element)+1}}</td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="creado">
+                        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                        <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy hh:mm'}} </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsLogs"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsLogs;"></tr>
+                </table>
+
+            </div>
+
         </mat-tab>
     </mat-tab-group>
 </div>

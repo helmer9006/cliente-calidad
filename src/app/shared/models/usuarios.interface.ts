@@ -34,38 +34,43 @@ export interface UsuarioAuth {
 export interface RespuestaLogin extends UsuarioAuth {
     status: boolean;
     response: {
+        usuarioId: number;
         token: string;
-        usuarioId: string;
-        perfil: Roles;
+        perfil: string;
         nombre: string;
         foto: string;
         idArea: number;
         idEspecialidad: number;
+        fechaNacimiento: Date;
+        celular: string;
+        correo: string;
+        estado: number;
+        createdAt: Date;
     };
     msg: string;
 }
 
 export interface ReqResponseCambioClave {
-    status:   boolean;
+    status: boolean;
     response: Response;
-    msg:      string;
+    msg: string;
 }
 
 export interface Response {
-    id:              number;
-    nombres:         string;
-    apellidos:       string;
-    tipoDoc:         string;
-    documento:       string;
-    correo:          string;
+    id: number;
+    nombres: string;
+    apellidos: string;
+    tipoDoc: string;
+    documento: string;
+    correo: string;
     fechaNacimiento: Date;
-    celular:         string;
-    clave:           string;
-    perfil:          string;
-    estado:          number;
-    idArea:          number;
-    idEspecialidad:  number;
-    foto:            string;
-    createdAt:       Date;
-    updatedAt:       Date;
+    celular: string;
+    clave: string;
+    perfil: string;
+    estado: number;
+    idArea: number;
+    idEspecialidad: number;
+    foto: string;
+    createdAt: Date;
+    updatedAt: Date;
 }

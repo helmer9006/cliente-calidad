@@ -46,6 +46,14 @@ export class UsersService {
         return this.http
             .get<ReqResResponseUsuarios>(`${environment.API_URL}/api/usuarios/cambiarestado/${userId}`)
     }
+    changeImage(body: any): Observable<any> {
+        return this.http.put<any>(`${environment.API_URL}/api/usuarios/cambiarfoto`, body)
+    }
+
+    getUserByName(text: string): Observable<ReqResResponseUsuarios> {
+        return this.http
+            .get<ReqResResponseUsuarios>(`${environment.API_URL}/api/usuarios/traerPorNombre/${text}`)
+    }
 
 
 }

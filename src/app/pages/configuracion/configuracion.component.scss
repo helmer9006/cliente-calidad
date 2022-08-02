@@ -2,14 +2,58 @@ table {
     width: 98%;
     margin: 0 auto;
     margin-top: 1rem;
-  }
+}
 
 
-  th.mat-sort-header-sorted {
+th.mat-sort-header-sorted {
     color: black;
-  }
-  
-  .table-button-row button {
+}
+
+.table-button-row button {
     margin: 12px;
-    padding: 0.5px!important;
-  }
+    padding: 0.5px !important;
+}
+
+.div-perfil {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 50px auto 0 auto;
+    display: block;
+    width: 300px;
+    text-align: left;
+
+
+}
+
+.div-img {
+    padding: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+
+    img {
+        width: 250px;
+        border-radius: 10%;
+    }
+}
+
+.div-editar-imagen {
+    position: relative;
+    padding: 10px;
+    background-color: rgb(87, 87, 87);
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+}
+
+.div-editar-imagen:hover {
+    background-color: #333;
+}
+
+.file-input {
+    display: none;
+}
+
+.div-logs {
+    margin: 20px;
+}

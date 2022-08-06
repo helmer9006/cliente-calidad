@@ -15,6 +15,7 @@ import { ClaveComponent } from './modal/clave/clave.component';
 import { Subject } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { BaseFormUser } from '../../../shared/utils/base-form-user';
+import { ToastrCustomService } from '../../../shared/services/toastr.service';
 
 @Component({
     selector: 'app-users',
@@ -31,7 +32,8 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(private userSvc: UsersService, private dialog: MatDialog,
-        public userForm: BaseFormUser,) { }
+        public userForm: BaseFormUser,
+        private toastr: ToastrCustomService) { }
 
     ngOnInit(): void {
         this.userSvc.getAll().subscribe((users) => {
@@ -50,7 +52,11 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
                 .delete(userId)
                 .pipe(takeUntil(this.destroy$))
                 .subscribe((res) => {
-                    window.alert(res.msg);
+                    if (res.status) {
+                        this.toastr.showSuccess(res.msg)
+                    } else {
+                        this.toastr.showError(res.msg)
+                    }
                     // actualizar resultado despues de eliminar usuario
                     this.userSvc.getAll().subscribe((users) => {
                         this.dataSource.data = users.response;
@@ -99,7 +105,11 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
 
     cambiarEstado(event: any, id: number): void {
         this.userSvc.changeStatus(id).subscribe((res) => {
-            window.alert(res.msg);
+            if (res.status) {
+                this.toastr.showSuccess(res.msg);
+            } else {
+                this.toastr.showError(res.msg);
+            }
         }
         );
     }

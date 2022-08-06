@@ -12,7 +12,12 @@ export class ToastrCustomService {
 
 
     showSuccess(msj) {
-        this.toastr.success(msj, '¡Éxito!');
+        this.toastr.success(msj, '¡Éxito!',
+            {
+                easeTime: 1000,
+                tapToDismiss: true,
+                timeOut: 3000,
+            });
     }
 
     // toast for 30 seconds
@@ -26,15 +31,32 @@ export class ToastrCustomService {
     }
 
     showError(msj, title = '¡Oops!') {
-        this.toastr.error(msj, title);
+        this.toastr.error(msj, title,
+            {
+                // progressBar: true,
+                easeTime: 1000,
+                tapToDismiss: true,
+                timeOut: 3000,
+
+            });
     }
 
     showWarning(msj, title = '¡Importante!') {
-        this.toastr.warning(msj, title);
+        this.toastr.warning(msj, title,
+            {
+                easeTime: 1000,
+                tapToDismiss: true,
+                timeOut: 3000,
+            });
     }
 
     showInfo(msj) {
-        this.toastr.info(msj);
+        this.toastr.info(msj, '¡Información!',
+            {
+                easeTime: 1000,
+                tapToDismiss: true,
+                timeOut: 3000,
+            });
     }
 
     closeAll() {

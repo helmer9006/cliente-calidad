@@ -18,6 +18,7 @@ import { DocumentosService } from '../admin/services/documentos.service';
 import { UsersService } from '../admin/services/users.service';
 import { RespuestaLogin } from '../../shared/models/usuarios.interface';
 import { LogsService } from '../admin/services/logs.service';
+import { ToastrCustomService } from '../../shared/services/toastr.service';
 
 @Component({
     selector: 'app-configuracion',
@@ -34,6 +35,7 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
         private cargarDocSvc: DocumentosService,
         private usersSvc: UsersService,
         private logsSrv: LogsService,
+        private toastr: ToastrCustomService,
     ) { }
 
     displayedColumnsAreas: string[] = ['id', 'nombre', 'ubicacion', 'creado', 'actualizado', 'acciones'];
@@ -67,28 +69,24 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
         const { response } = JSON.parse(localStorage.getItem('user'));
         this.user = response;
         this.areasSvc.getAll().subscribe(res => {
-            console.log(res);
             if (res.status) {
                 this.areasList = res.response;
                 this.dataSourceAreas.data = this.areasList;
             } else {
-                window.alert("Error al cargar las áreas");
+                this.toastr.showError("Error al cargar las áreas")
             }
         });
 
         this.especialidadesSvc.getAll().subscribe(res => {
-            console.log(res);
             if (res.status) {
                 this.especialidadesList = res.response;
                 this.dataSourceEspecialidades.data = this.especialidadesList;
             } else {
-                window.alert("Error al cargar las especialidades");
+                this.toastr.showError("Error al cargar las especialidades")
             }
         });
 
-
         this.getUserLogin();
-
         this.filteredOptions = this.FormLogs.get('usuarioId').valueChanges.pipe(
             // debounceTime(200),
             startWith(''),
@@ -134,7 +132,11 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
                 .delete(id)
                 .pipe(takeUntil(this.destroy$))
                 .subscribe((res) => {
-                    window.alert(res.msg);
+                    if (res.status) {
+                        this.toastr.showSuccess(res.msg);
+                    } else {
+                        this.toastr.showError(res.msg);
+                    }
                     // actualizar resultado despues de eliminar área
                     this.areasSvc.getAll().subscribe((areas) => {
                         this.dataSourceAreas.data = areas.response;
@@ -148,7 +150,11 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
                 .delete(id)
                 .pipe(takeUntil(this.destroy$))
                 .subscribe((res) => {
-                    window.alert(res.msg);
+                    if (res.status) {
+                        this.toastr.showSuccess(res.msg);
+                    } else {
+                        this.toastr.showError(res.msg);
+                    }
                     // actualizar resultado despues de eliminar especialidad
                     this.areasSvc.getAll().subscribe((esp) => {
                         this.dataSourceEspecialidades.data = esp.response;
@@ -213,34 +219,31 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
             })
             this.cargarDocSvc.createDocumento(formularioDeDatos)
                 .subscribe(res => {
-                    if (res.status) {
-                        // window.alert(res.msg);
-                        this.usersSvc.changeImage({ idUsuario: this.usuarioLogin.usuarioId, foto: res.response.url })
-                            .subscribe(result => {
-                                if (result.status) {
-                                    debugger;
-                                    let userStorage = JSON.parse(localStorage.getItem("user"));
-                                    userStorage.response.foto = res.response.url;
-                                    localStorage.setItem("user", JSON.stringify(userStorage));
-                                    window.location.reload();
-                                    window.alert(res.msg);
-                                } else {
-                                    window.alert(result.msg);
-                                }
-                            });
-                        this.visualizarImagenArea = res.response.url;
-
-                    } else {
-                        window.alert(res.message);
+                    if (!res.status) {
+                        this.toastr.showError(res.msg);
+                        return;
                     }
+                    this.usersSvc.changeImage({ idUsuario: this.usuarioLogin.usuarioId, foto: res.response.url })
+                        .subscribe(result => {
+                            if (result.status) {
+                                let userStorage = JSON.parse(localStorage.getItem("user"));
+                                userStorage.response.foto = res.response.url;
+                                localStorage.setItem("user", JSON.stringify(userStorage));
+                                this.toastr.showSuccess(result.msg);
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 3500);
+                            } else {
+                                this.toastr.showError(result.msg);
+                            }
+                        });
+                    this.visualizarImagenArea = res.response.url;
                 }, () => {
-                    window.alert('Error');
+                    this.toastr.showError('Error al cargar la imagen');
                 })
         } catch (e) {
             console.log('ERROR', e);
         }
-
-
     }
 
     getUserLogin() {
@@ -256,11 +259,10 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
         const filterValue = typeof value == 'string' ? value.toLowerCase() : value;
         //consultar api para obtener los usuarios
         this.usersSvc.getUserByName(filterValue).subscribe(res => {
-            console.log(res);
             if (res.status) {
                 this.usuariosList = res.response;
             } else {
-                window.alert("Error al cargar los usuarios");
+                this.toastr.showError(res.msg);
             }
         });
         return this.usuariosList;
@@ -276,19 +278,15 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
                 this.logs = res.response;
                 this.dataSourceLogs.data = this.logs;
             } else {
-                window.alert(res.msg);
+                this.toastr.showError(res.msg);
             }
         });
 
 
     }
 
-    changeClient(e) {
-        window.alert(e);
-    }
-
+    //metodo para poder pasar el value id al autocomplete y mostrar nombre
     displayFn(value?: number) {
-        console.log(value);
         const res = value ? this.usuariosList.find(user => user.id == value).nombres : undefined;
         return res
     }

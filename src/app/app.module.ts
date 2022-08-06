@@ -40,8 +40,9 @@ import { ImagenPipeUsuario } from './shared/components/header/pipes/imagen.pipe'
         MaterialModule,
         SidebarModule,
         ToastrModule.forRoot({
-            timeOut: 1000,
-            positionClass: 'toast-top-right'
+            positionClass: 'toast-top-right',
+            maxOpened: 0,
+            preventDuplicates: false,
         }),
         NgxSpinnerModule,
         FormsModule,

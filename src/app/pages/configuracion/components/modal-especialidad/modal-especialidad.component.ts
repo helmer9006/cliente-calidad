@@ -3,6 +3,7 @@ import { EspecialidadesService } from '../../../admin/services/especialidades.se
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { ToastrCustomService } from '../../../../shared/services/toastr.service';
 
 enum Action {
     EDIT = 'edit',
@@ -24,7 +25,8 @@ export class ModalEspecialidadComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public data: any,
         private especialidadesSrv: EspecialidadesService,
         private fb: FormBuilder,
-        private MatDialog: MatDialog
+        private MatDialog: MatDialog,
+        private toastr: ToastrCustomService,
 
     ) { }
 
@@ -86,19 +88,21 @@ export class ModalEspecialidadComponent implements OnInit, OnDestroy {
         const formValue = this.FormEspecialidades.value;
         if (this.actionTODO === Action.NEW) {
             this.especialidadesSrv.new(formValue).subscribe((res) => {
-                window.alert(res.msg)
                 if (res.status) {
+                    this.toastr.showSuccess(res.msg);
                     this.MatDialog.closeAll();
+                } else {
+                    this.toastr.showError(res.msg);
                 }
-                console.log('New ', res);
             });
         } else {
             const especialidadId = this.data?.especialidad?.id;
             this.especialidadesSrv.update(especialidadId, formValue).subscribe((res) => {
-                console.log('Update', res);
-                window.alert(res.msg)
                 if (res.status) {
+                    this.toastr.showSuccess(res.msg);
                     this.MatDialog.closeAll();
+                } else {
+                    this.toastr.showError(res.msg);
                 }
             });
         }

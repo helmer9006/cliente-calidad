@@ -50,12 +50,13 @@ export class InterceptorService implements HttpInterceptor {
                 window.alert(error.error.msg);
             }
         } else {
-            if(error.error.errores.length > 0) {
+            if(error.error?.errores?.length > 0) {
                 for(let i of error.error.errores) {
                     window.alert(`${i.msg}`);
                 }
             }
-            errorMessage = `Error en la petición ${error.message}`;
+            window.alert(`Servidor no disponible.`);
+            console.log(`Error en la petición ${error.message}`);
             return;
         }
 

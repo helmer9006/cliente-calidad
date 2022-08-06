@@ -8,6 +8,7 @@ import { BaseFormUser } from '@shared/utils/base-form-user';
 import { EspecialidadesService } from '../../../services/especialidades.service';
 import { Subscription } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ToastrCustomService } from '../../../../../shared/services/toastr.service';
 
 
 @Component({
@@ -24,13 +25,11 @@ export class ClaveComponent implements OnInit, OnDestroy {
         private router: Router,
         private userSvc: UsersService,
         private MatDiaglog: MatDialog,
+        private toastr: ToastrCustomService,
     ) { }
 
     ngOnInit(): void {
-        // this.FormLogin.get('perfil').setValidators(null);
-        // this.FormLogin.get('perfil').updateValueAndValidity();
         if (this.data?.user.hasOwnProperty('id')) {
-            // this.FormLogin.updateValueAndValidity();
             this.pathFormData();
         }
     }
@@ -48,8 +47,10 @@ export class ClaveComponent implements OnInit, OnDestroy {
         const formValue = this.FormLogin.value;
         this.subscription.add(
             this.userSvc.changePass(formValue).subscribe((res) => {
-                window.alert(res.msg)
-                if (!res.status) {
+                if(res.status){
+                    this.toastr.showSuccess(res.msg);
+                }else{
+                    this.toastr.showError(res.msg);
                     return
                 }
                 this.MatDiaglog.closeAll();

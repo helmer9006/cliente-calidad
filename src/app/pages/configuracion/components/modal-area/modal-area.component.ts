@@ -44,7 +44,7 @@ export class ModalAreaComponent implements OnInit, OnDestroy {
             this.FormAreas.updateValueAndValidity();
             this.data.title = 'Editar Área';
             this.pathFormData();
-            this.visualizarImagenArea =  this.FormAreas.get("imagen").value;
+            this.visualizarImagenArea = this.FormAreas.get("imagen").value;
         }
     }
 
@@ -58,7 +58,7 @@ export class ModalAreaComponent implements OnInit, OnDestroy {
     FormAreas = this.fb.group({
         nombre: ['', [Validators.required]],
         ubicacion: ['', [Validators.required]],
-        imagen: ['', [Validators.required, ]],
+        imagen: ['', [Validators.required,]],
 
     });
 
@@ -120,17 +120,17 @@ export class ModalAreaComponent implements OnInit, OnDestroy {
             this.cargarDocSvc.createDocumento(formularioDeDatos)
                 .subscribe(res => {
                     if (res.status) {
-                        window.alert(res.msg);
+                        this.toastr.showSuccess(res.msg);
                         this.loading = false;
                         this.FormAreas.get("imagen").setValue(res.response.url);
                         this.visualizarImagenArea = res.response.url;
                         this.color = "primary";
                     } else {
-                        window.alert(res.message);
+                        this.toastr.showError(res.msg);
                     }
                 }, () => {
                     this.loading = false;
-                    window.alert('Error');
+                    this.toastr.showError('Error');
                 })
         } catch (e) {
             this.loading = false;
@@ -143,19 +143,21 @@ export class ModalAreaComponent implements OnInit, OnDestroy {
         const formValue = this.FormAreas.value;
         if (this.actionTODO === Action.NEW) {
             this.areasSvc.new(formValue).subscribe((res) => {
-                window.alert(res.msg)
                 if (res.status) {
+                    this.toastr.showSuccess(res.msg);
                     this.MatDialog.closeAll();
+                } else {
+                    this.toastr.showError(res.msg);
                 }
-                console.log('New ', res);
             });
         } else {
             const areaId = this.data?.area?.id;
             this.areasSvc.update(areaId, formValue).subscribe((res) => {
-                console.log('Update', res);
-                window.alert(res.msg)
                 if (res.status) {
+                    this.toastr.showSuccess(res.msg);
                     this.MatDialog.closeAll();
+                } else {
+                    this.toastr.showError(res.msg);
                 }
             });
         }

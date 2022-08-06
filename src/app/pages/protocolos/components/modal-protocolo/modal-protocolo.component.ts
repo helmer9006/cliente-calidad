@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { AreasService } from '../../../admin/services/areas.service';
 import { EspecialidadesService } from '../../../admin/services/especialidades.service';
 import { DocumentosService } from '../../../admin/services/documentos.service';
+import { ToastrCustomService } from '@shared/services/toastr.service';
 
 
 enum Action {
@@ -36,7 +37,8 @@ export class ModalProtocoloComponent implements OnInit, OnDestroy {
         private areasSvc: AreasService,
         private especialidadesSvc: EspecialidadesService,
         private cargarDocSvc: DocumentosService,
-        private MatDialog: MatDialog
+        private MatDialog: MatDialog,
+        private toastr: ToastrCustomService
     ) { }
 
     ngOnInit(): void {
@@ -105,20 +107,23 @@ export class ModalProtocoloComponent implements OnInit, OnDestroy {
         const formValue = this.FormProtocolo.value;
         if (this.actionTODO === Action.NEW) {
             this.protocolosSrv.postCrearProtocolo(formValue).subscribe((res) => {
-                window.alert(res.msg)
                 if (res.status) {
+                    this.toastr.showSuccess(res.msg);
                     this.MatDialog.closeAll();
+                } else {
+                    this.toastr.showError(res.msg);
                 }
-                console.log('New ', res);
             });
         } else {
             const protocoloId = this.data?.protocolo?.id;
             this.protocolosSrv.putActualizarProtocolo(protocoloId, formValue).subscribe((res) => {
-                console.log('Update', res);
-                window.alert(res.msg)
                 if (res.status) {
+                    this.toastr.showSuccess(res.msg);
                     this.MatDialog.closeAll();
+                } else {
+                    this.toastr.showError(res.msg);
                 }
+
             });
         }
     }
@@ -145,25 +150,26 @@ export class ModalProtocoloComponent implements OnInit, OnDestroy {
             this.cargarDocSvc.createDocumento(formularioDeDatos)
                 .subscribe(res => {
                     if (res.status) {
-                        window.alert(res.msg);
+                        this.toastr.showSuccess(res.msg);
                         this.loading = false;
                         this.FormProtocolo.get("url").setValue(res.response.url);
                         this.color = "primary";
                     } else {
-                        window.alert(res.message);
+                        this.toastr.showError(res.msg);
                     }
                 }, () => {
                     this.loading = false;
-                    alert('Error');
+                    this.toastr.showError('Error al subir el archivo');
                 })
         } catch (e) {
             this.loading = false;
+            this.toastr.showError('Error!');
             console.log('ERROR', e);
 
         }
     }
 
-    pathFormData(): void{
+    pathFormData(): void {
         this.FormProtocolo.get("nombre").setValue(this.data.protocolo.nombre);
         this.FormProtocolo.get("idEspecialidad").setValue(this.data.protocolo.idEspecialidad);
         this.FormProtocolo.get("idArea").setValue(this.data.protocolo.idArea);

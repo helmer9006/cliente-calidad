@@ -7,6 +7,7 @@ import { UsersService } from '../../../services/users.service';
 import { AreasService } from '../../../services/areas.service';
 import { EspecialidadesService } from '../../../services/especialidades.service';
 import { AuthService } from '../../../../auth/auth.service';
+import { ToastrCustomService } from '../../../../../shared/services/toastr.service';
 
 
 enum Action {
@@ -36,7 +37,8 @@ export class ModalComponent implements OnInit {
         private areasSvc: AreasService,
         private especialidadesSvc: EspecialidadesService,
         private MatDialog: MatDialog,
-        private authSvc: AuthService
+        private authSvc: AuthService,
+        private toastr: ToastrCustomService
     ) { }
 
 
@@ -90,22 +92,23 @@ export class ModalComponent implements OnInit {
         const formValue = this.userForm.baseForm.value;
         if (this.actionTODO === Action.NEW) {
             this.userSvc.new(formValue).subscribe((res) => {
-                window.alert(res.msg)
                 if (res.status) {
+                    this.toastr.showSuccess(res.msg);
                     this.MatDialog.closeAll();
+                } else {
+                    this.toastr.showError(res.msg);
                 }
-                console.log('New ', res);
             });
         } else {
             const userId = this.data?.user?.id;
             delete formValue.clave;
             this.userSvc.update(userId, formValue).subscribe((res) => {
-                console.log('Update', res);
-                window.alert(res.msg)
-
                 if (res.status) {
+                    this.toastr.showSuccess(res.msg);
                     this.MatDialog.closeAll();
                     this.authSvc.checkToken();
+                } else {
+                    this.toastr.showError(res.msg);
                 }
             });
         }
@@ -138,8 +141,11 @@ export class ModalComponent implements OnInit {
 
     changeStatus(userId: number) {
         this.userSvc.changeStatus(userId).subscribe((res) => {
-            window.alert(res.msg)
-            console.log(res);
+            if (res.status) {
+                this.toastr.showSuccess(res.msg);
+            } else {
+                this.toastr.showError(res.msg);
+            }
         }
         );
     }

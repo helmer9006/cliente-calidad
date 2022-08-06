@@ -12,6 +12,7 @@ import { Subject, Subscription } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ModalProtocoloComponent } from '../modal-protocolo/modal-protocolo.component';
 import { UsersService } from '../../../admin/services/users.service';
+import { ToastrCustomService } from '../../../../shared/services/toastr.service';
 @Component({
     selector: 'app-lista',
     templateUrl: './lista.component.html',
@@ -34,7 +35,8 @@ export class ListaComponent implements AfterViewInit, OnInit, OnDestroy {
         private activateRouter: ActivatedRoute,
         private protocolosSvc: ProtocolosService,
         private dialog: MatDialog,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private toastr: ToastrCustomService
     ) { }
 
 
@@ -47,9 +49,9 @@ export class ListaComponent implements AfterViewInit, OnInit, OnDestroy {
                 this.protocolosSvc.getProtocolos(idArea, this.user.idEspecialidad, environment.EMPTY)))).subscribe
             (protocolos => {
                 if (!protocolos.status) {
-                    window.alert("Error al cargar los protocolos");
+                    this.toastr.showError(protocolos.msg);
+                    this.toastr.showError("Error al cargar los protocolos");
                 }
-
                 this.dataSource.data = protocolos.response
             }
             );
@@ -94,7 +96,11 @@ export class ListaComponent implements AfterViewInit, OnInit, OnDestroy {
                 .eliminarProtocolo(id)
                 .pipe(takeUntil(this.destroy$))
                 .subscribe((res) => {
-                    window.alert(res.msg);
+                    if (!res.status) {
+                        this.toastr.showError(res.msg);
+                    } else {
+                        this.toastr.showSuccess(res.msg);
+                    }
                     // actualizar resultado despues de eliminar usuario
                     this.protocolosSvc.getProtocolos(this.idArea, this.user.idEspecialidad, environment.EMPTY).subscribe((protocolos) => {
                         this.dataSource.data = protocolos.response;

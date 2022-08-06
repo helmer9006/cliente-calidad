@@ -7,15 +7,18 @@ import { AdminComponent } from './admin.component';
 import { ModalComponent } from './users/modal/usuarios/modalUsuarios.component';
 import { MaterialModule } from '@app/material.module';
 import { CargarDocumentoComponent } from '../../shared/components/cargar-documento/cargar-documento.component';
-
+import { ClimaComponent } from './components/clima/clima.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-  declarations: [AdminComponent, ModalComponent, CargarDocumentoComponent],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    MaterialModule,
-    ReactiveFormsModule,FormsModule
-  ],
+    declarations: [AdminComponent, ModalComponent, CargarDocumentoComponent, ClimaComponent],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        MaterialModule,
+        ReactiveFormsModule, 
+        FormsModule,
+        FlexLayoutModule
+    ],
 })
-export class AdminModule {}
+export class AdminModule { }

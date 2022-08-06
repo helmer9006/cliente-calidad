@@ -31,13 +31,9 @@
                     {{fileName || "Seleccionar imagen."}}
                 </div>
                 <div align="center" fxFlex="45" fxFlex.lg="50" fxFlex.sm="50" fxFlex.xs="100">
-                    <img [src]="visualizarImagenArea" alt="imagen área">
+                    <img [src]="visualizarImagenArea" alt="imagen área" *ngIf="data?.area.id">
                 </div>
             </div>
-
-
-
-
         </form>
     </div>
 </mat-dialog-content>

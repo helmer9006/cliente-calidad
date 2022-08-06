@@ -8,16 +8,15 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-// import { ToastrCustomService } from "src/app/shared/toastr.component";
-import { Response } from 'express';
+import { ToastrCustomService } from '@shared/services/toastr.service';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class InterceptorService implements HttpInterceptor {
 
-    constructor(private authSvc: AuthService, private toastr: ToastrService) { }
+    constructor(private authSvc: AuthService, private toastr: ToastrCustomService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         //interceptar la peticion y agrega token
@@ -40,6 +39,7 @@ export class InterceptorService implements HttpInterceptor {
     }
     //interceptar la peticion y agrega e identifica errores
     controlarError(error): Observable<never> {
+        debugger;
         let errorMessage = 'Error desconocido';
         console.log("error", error);
         if (error.error.status == false) {
@@ -50,9 +50,13 @@ export class InterceptorService implements HttpInterceptor {
                 window.alert(error.error.msg);
             }
         } else {
-            window.alert(`Error en la petición ${error.message}`);
+            if(error.error.errores.length > 0) {
+                for(let i of error.error.errores) {
+                    window.alert(`${i.msg}`);
+                }
+            }
             errorMessage = `Error en la petición ${error.message}`;
-            return throwError(errorMessage);
+            return;
         }
 
     }

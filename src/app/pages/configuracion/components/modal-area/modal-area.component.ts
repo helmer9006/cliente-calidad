@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { AreasService } from '../../../admin/services/areas.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DocumentosService } from '../../../admin/services/documentos.service';
+import { ToastrCustomService } from '../../../../shared/services/toastr.service';
 
 
 enum Action {
@@ -31,7 +32,8 @@ export class ModalAreaComponent implements OnInit, OnDestroy {
         private areasSvc: AreasService,
         private fb: FormBuilder,
         private MatDialog: MatDialog,
-        private cargarDocSvc: DocumentosService
+        private cargarDocSvc: DocumentosService,
+        private toastr: ToastrCustomService
     ) { }
 
     ngOnInit(): void {
@@ -44,7 +46,6 @@ export class ModalAreaComponent implements OnInit, OnDestroy {
             this.pathFormData();
             this.visualizarImagenArea =  this.FormAreas.get("imagen").value;
         }
-
     }
 
     ngOnDestroy(): void {

@@ -13,7 +13,14 @@ import { Subject } from 'rxjs';
 export class SidebarComponent implements OnInit, OnDestroy {
     constructor(
         private authSvc: AuthService,
-        private utilsSvc: UtilsService) { }
+        private utilsSvc: UtilsService) {
+        this.authSvc.user$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((user: RespuestaLogin) => {
+                this.usuarioLogin = user?.response;
+                console.log("usuarioLogin", this.usuarioLogin)
+            });
+    }
 
     private destroy$ = new Subject<any>();
     usuarioLogin: any;
@@ -24,11 +31,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.authSvc.user$
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((user: RespuestaLogin) => {
-                this.usuarioLogin = user.response;
-            });
+
     }
 
 

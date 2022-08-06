@@ -26,9 +26,10 @@ import { InterceptorService } from '@shared/interceptors/interceptor.service';
 import { SpinnerInterceptorService } from '@shared/interceptors/spinner-interceptor.service';
 import { ImagenPipeUsuario } from './shared/components/header/pipes/imagen.pipe';
 
+
 @NgModule({
 
-    declarations: [AppComponent, HeaderComponent, FooterComponent, ImagenPipeUsuario],
+    declarations: [AppComponent, HeaderComponent, FooterComponent, ImagenPipeUsuario, ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -40,15 +41,17 @@ import { ImagenPipeUsuario } from './shared/components/header/pipes/imagen.pipe'
         SidebarModule,
         ToastrModule.forRoot({
             timeOut: 1000,
-            positionClass: 'toast-bottom-right'
+            positionClass: 'toast-top-right'
         }),
         NgxSpinnerModule,
-        FormsModule
+        FormsModule,
+        
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorService, multi: true },
-        { provide: LOCALE_ID, useValue: 'es-CO' }
+        { provide: LOCALE_ID, useValue: 'es-CO' },
+        
     ],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -167,8 +167,9 @@
 
         <!-- LOGS -->
 
-        <mat-tab label="LOGS">
+        <mat-tab label="LOGS" *ngIf="usuarioLogin.perfil != 'estandar'">
             <div class="div-logs">
+                <br>
                 <form [formGroup]="FormLogs" (ngSubmit)="onSubmit()">
                     <!--FECHA INICIAL-->
                     <mat-form-field class="full-width-input" color="accent" appearance="fill">
@@ -201,8 +202,10 @@
                     </mat-form-field>
                     <button mat-raised-button color="primary" type="submit">Buscar</button>
                 </form>
+                <br> <br>
+                <br>
+                <h1 class="titulo2"><strong>Registros de logs</strong></h1>
 
-                <hr>
                 <table mat-table [dataSource]="dataSourceLogs" class="mat-elevation-z8">
 
                     <!--- Note that these columns can be defined in any order.
@@ -211,19 +214,19 @@
                     <!-- Position Column -->
                     <ng-container matColumnDef="id">
                         <th mat-header-cell *matHeaderCellDef> No. </th>
-                        <td mat-cell *matCellDef="let element">{{dataSourceLogs.filteredData.indexOf(element)+1}}</td>
+                        <td mat-cell *matCellDef="let element" [ngClass]="element.descripcion == 'Ingreso al sistema' ? 'login' : 'logout' ">{{dataSourceLogs.filteredData.indexOf(element)+1}}</td>
                     </ng-container>
 
                     <!-- Name Column -->
                     <ng-container matColumnDef="descripcion">
                         <th mat-header-cell *matHeaderCellDef> Descripción </th>
-                        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                        <td mat-cell *matCellDef="let element" [ngClass]="element.descripcion == 'Ingreso al sistema' ? 'login' : 'logout' "> {{element.descripcion}} </td>
                     </ng-container>
 
                     <!-- Weight Column -->
                     <ng-container matColumnDef="creado">
                         <th mat-header-cell *matHeaderCellDef> Fecha </th>
-                        <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy hh:mm'}} </td>
+                        <td mat-cell *matCellDef="let element" [ngClass]="element.descripcion == 'Ingreso al sistema' ? 'login' : 'logout' "> {{element.createdAt | date:'dd/MM/yyyy hh:mm'}} </td>
                     </ng-container>
 
 

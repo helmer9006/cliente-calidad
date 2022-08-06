@@ -1,1 +1,35 @@
-<h1 class="titulo2"><strong>Dashboard</strong></h1>
+<div style="padding: 20px;">
+    <h1 class="titulo2"><strong>Dashboard</strong></h1>
+
+    <div fxLayout="row wrap" fxLayoutGap="30px">
+        <!-- CLIMA -->
+        <app-clima class="container-clima" fxFlex="20" fxFlex.xs="100" fxFlex.md="45" fxFlex.lg="25" fxFlex.sm="45">
+        </app-clima>
+
+        <!-- MENSAJE -->
+        <div class="container-clima banner" fxFlex="20" fxFlex.xs="100" fxFlex.md="45" fxFlex.lg="25" fxFlex.sm="45">
+            <h1>Más de 1.000 atenciones de urgencias al mes</h1>
+            <img class="img" src="./assets/images/doctors.svg" alt="">
+            <p>El éxito es la suma de pequeños esfuerzos repetidos un día sí y otro también – Robert Collier</p>
+            <h3>¡Cuidar su salud nos hace grandes!!</h3>
+        </div>
+
+        <!-- CUMPLEAÑOS -->
+
+        <div class="container-clima banner cumple"  id="birthday" fxFlex="20" fxFlex.xs="100" fxFlex.md="45" fxFlex.lg="25" fxFlex.sm="45">
+            <h1>Últimos 6 cumpleaños</h1>
+            <div class="div-cumpleaños" *ngFor="let cumple of cumpleList[0]" fxLayout="row" fxLayoutGap="20px"  fxLayoutAlign="flex-start">
+                <img [src]="cumple.foto" alt="foto usuario" fxflex="25">
+                <div fxflex="65">
+                    <h4 >{{cumple.nombreCompleto.toUpperCase()}}</h4>
+                    <p> {{cumple.FechaCumple | date}}</p>
+                   
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>

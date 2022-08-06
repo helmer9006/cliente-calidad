@@ -55,5 +55,10 @@ export class UsersService {
             .get<ReqResResponseUsuarios>(`${environment.API_URL}/api/usuarios/traerPorNombre/${text}`)
     }
 
+    getBirthday(): Observable<ReqResResponseUsuarios> {
+        return this.http
+            .get<ReqResResponseUsuarios>(`${environment.API_URL}/api/usuarios/cumples`)
+    }
+
 
 }

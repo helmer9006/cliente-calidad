@@ -1,0 +1,74 @@
+.container-clima {
+    border-radius: 20px;
+    box-shadow: 10px 10px 60px rgba(0, 0, 0, 0.10), 10px 10px 60px rgba(0, 0, 0, 0.02) !important;
+    padding: 30px;
+
+}
+
+.container-clima:hover {
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    box-shadow: 10px 10px 60px rgba(0, 0, 0, 0.10), 5px 5px 60px rgba(0, 0, 0, 0.10) !important;
+}
+
+.container-clima img {
+    width: 100%;
+    height: auto;
+}
+
+@supports(object-fit: cover) {
+    .container-clima img {
+        // height: 100%;
+        margin-top: 20px;
+        object-fit: contain;
+        object-position: center center;
+    }
+}
+
+.banner {
+    text-align: center !important;
+}
+
+.banner h1 {
+    font-weight: bold !important;
+}
+
+.banner p {
+    // font-size: 1.2em !important;
+}
+
+.banner h3 {
+    font-weight: bold !important;
+}
+
+.div-cumpleaños{
+    padding-top: 5px;
+    align-items: center;
+}
+
+.div-cumpleaños img {
+    border-radius: 50%;
+    width: 50px;
+    height: auto;
+    display: block;
+    // margin-top: 0px !important;
+}
+
+.div-cumpleaños h4{
+    margin: 10px 0 0px !important;
+    font-weight: bold !important;
+}
+
+.div-cumpleaños p{
+    text-align: left !important;
+    font-weight: 500 !important;
+}
+
+.cumple{
+    background-image: url("./../../../assets/cumple.gif");
+    background-color: #cccccc; /* Used if the image is unavailable */
+    // height: 500px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    // background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: contain; /* Resize the background image to cover the entire container */
+}

@@ -129,7 +129,12 @@ export class ModalProtocoloComponent implements OnInit, OnDestroy {
     }
 
     onFileSelected(event) {
+        debugger;
         console.log(event);
+        if (event.target.files[0].size > 6291456) {
+            this.toastr.showWarning('El archivo no puede ser mayor a 6MB');
+            return;
+        }
         const file: File = event.target.files[0];
         if (file) {
             this.fileName = file.name;

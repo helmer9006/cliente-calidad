@@ -48,6 +48,12 @@ const routes: Routes = [
             import('./pages/configuracion/configuracion.module').then((m) => m.ConfiguracionModule),
         canActivate: [RutasGuard],
     },
+    {
+        path: 'infografia',
+        loadChildren: () =>
+            import('./pages/infografia/infografia.module').then((m) => m.InfografiaModule),
+        canActivate: [RutasGuard],
+    },
     { path: '**', redirectTo: '/dashboard' },
 
 ];

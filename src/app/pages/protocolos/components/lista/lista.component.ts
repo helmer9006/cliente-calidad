@@ -101,7 +101,7 @@ export class ListaComponent implements AfterViewInit, OnInit, OnDestroy {
                     } else {
                         this.toastr.showSuccess(res.msg);
                     }
-                    // actualizar resultado despues de eliminar usuario
+                    // actualizar resultado despues de eliminar protocolo
                     this.protocolosSvc.getProtocolos(this.idArea, this.user.idEspecialidad, environment.EMPTY).subscribe((protocolos) => {
                         this.dataSource.data = protocolos.response;
                     });

@@ -1,0 +1,37 @@
+.full-width-input {
+    width: 100%;
+    margin-top: 0px;
+    padding: 1.5%;
+}
+
+form {
+    padding: 2rem;
+}
+
+.file-input{
+    display: none;
+}
+
+.file-upload {
+    // display: inline-block;
+    padding: 10px;
+    border-style: dashed;
+    border-color: #d5d5d5;
+    cursor: pointer;
+    margin: 1.5%;
+
+}
+
+
+.div-img{
+    // margin: 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+img{
+    width: 120px;
+    height: 100px;
+    border-radius: 5px;
+}

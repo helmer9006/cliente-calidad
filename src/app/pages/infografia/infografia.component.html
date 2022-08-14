@@ -1,0 +1,33 @@
+<!-- div para hacer flex con wrap con fxlayout -->
+<h1 class="titulo2"><strong>Infografías</strong></h1>
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="30px" style="margin: 20px;">
+    <!-- puedo usar las propiedades como directivas [fxLayoutAlign] y tener una variable para pasarla -->
+    <!-- definimos el tamaño de cada tarjeta del total del row -->
+
+    <div fxFlex="23" fxFlex.lg="22" fxFlex.sm="43" fxFlex.md="30" *ngFor="let infografia of infografiasList">
+        <!-- llamo al componente area tarjeta y le paso el objeto area -->
+        <div class="container-info" style="margin-top: 30px;">
+            <img [src]="infografia.url" alt="imagen infografía">
+            <div class="text-info" style="position: relative;">
+                <h2 class="center"><strong>{{infografia.descripcion}}</strong></h2>
+                <p class="center"> <strong></strong> {{infografia.createdAt | date:'dd-MM-yyyy'}}</p>
+                <button mat-fab *ngIf="user.response.perfil != 'estandar'" style="position: absolute; top: 40px; left: 10px;" color="warn">
+                    <mat-icon style="cursor: pointer;" mat-flat-button color="basic" matTooltip="Eliminar infografía"
+                        (click)="onDelete(infografia.id)">
+                        delete
+                    </mat-icon>
+                </button>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+<button mat-fab color="primary" matTooltip="Agregar infogafía" class="add" (click)="onOpenModalInfografia()">
+    <mat-icon>
+        add
+    </mat-icon>
+</button>

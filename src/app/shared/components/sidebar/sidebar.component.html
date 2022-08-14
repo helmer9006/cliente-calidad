@@ -4,14 +4,19 @@
         <span class="nav-link">Dashboard</span>
     </a>
 
-    <a routerLinkActive="active" mat-list-item routerLink="/users" *ngIf="usuarioLogin && usuarioLogin.perfil == 'admin'">
-        <mat-icon mat-list-icon style="margin-right: 5px">people</mat-icon>
-        <span class="nav-link">Usuarios</span>
+    <a routerLinkActive="active" mat-list-item routerLink="/infografia">
+        <mat-icon mat-list-icon style="margin-right: 5px">photo_library</mat-icon>
+        <span class="nav-link">Infogafía</span>
     </a>
 
     <a routerLinkActive="active" mat-list-item routerLink="/protocolos/areas">
         <mat-icon mat-list-icon style="margin-right: 5px">assignment</mat-icon>
         <span class="nav-link">Protocolos</span>
+    </a>
+
+    <a routerLinkActive="active" mat-list-item routerLink="/users" *ngIf="usuarioLogin && usuarioLogin.perfil == 'admin'">
+        <mat-icon mat-list-icon style="margin-right: 5px">people</mat-icon>
+        <span class="nav-link">Usuarios</span>
     </a>
 
     <a routerLinkActive="active" mat-list-item routerLink="/configuracion">

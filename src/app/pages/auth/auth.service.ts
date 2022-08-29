@@ -4,10 +4,12 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 
-import { RespuestaLogin, UsuarioAuth, Roles } from '@shared/models/usuarios.interface';
+import { RespuestaLogin, UsuarioAuth, Roles, ReqResResponseUsuarios } from '@shared/models/usuarios.interface';
 import { catchError, map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { UtilsService } from '../../shared/services/utils.service';
+import { ToastrCustomService } from '../../shared/services/toastr.service';
+import { UsersService } from '../admin/services/users.service';
 
 const helper = new JwtHelperService();
 
@@ -17,7 +19,11 @@ const helper = new JwtHelperService();
 export class AuthService {
     private user = new BehaviorSubject<RespuestaLogin>(null);
 
-    constructor(private http: HttpClient, private router: Router, private utilsSvc: UtilsService) {
+    constructor(private http: HttpClient,
+        private router: Router,
+        private utilsSvc: UtilsService,
+        private userSvc: UsersService,
+        private toastr: ToastrCustomService) {
         this.checkToken();
     }
     get user$(): Observable<RespuestaLogin> {
@@ -40,11 +46,24 @@ export class AuthService {
             );
     }
 
-    logout(): void {
-        localStorage.removeItem('user');
-        this.router.navigate(['/login']);
-        this.user.next(null);
-        this.utilsSvc.openSidebar(false);
+    logout(): Observable<any | void> {
+        return this.http
+            .get<any>(`${environment.API_URL}/api/logout/user`)
+            .pipe(
+                map((res: any) => {
+                    if(res.status){
+                        localStorage.removeItem('user');
+                        this.router.navigate(['/login']);
+                        this.user.next(null);
+                        this.utilsSvc.openSidebar(false);
+                        this.toastr.showSuccess(res.msg);
+                    }else{
+                        this.toastr.showError(res.msg);
+                        return
+                    }
+                }),
+                catchError((err) => this.handlerError(err))
+            );
     }
 
     public checkToken(): void {

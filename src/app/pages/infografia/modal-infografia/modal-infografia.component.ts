@@ -151,6 +151,4 @@ export class ModalInfografiaComponent implements OnInit, OnDestroy {
         }
     }
 
-
-
 }

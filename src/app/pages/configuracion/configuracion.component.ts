@@ -57,13 +57,14 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
     usuariosList = [];
     logs = [];
     dataSourceLogs = new MatTableDataSource();
-    displayedColumnsLogs = ['id', 'descripcion', 'creado'];
+    displayedColumnsLogs = ['id', 'usuario','descripcion', 'creado'];
     @ViewChild('MatSortAreas') MatSortAreas = new MatSort();
     @ViewChild('MatPaginatorAreas', { read: MatPaginator }) MatPaginatorAreas: MatPaginator;
 
     @ViewChild('MatSortEspecialidades') MatSortEspecialidades = new MatSort();
     @ViewChild('MatPaginatorEspecialidades', { read: MatPaginator }) MatPaginatorEspecialidades: MatPaginator;
 
+    @ViewChild('MatSortLogs') MatSortLogs = new MatSort();
 
     ngOnInit(): void {
         const { response } = JSON.parse(localStorage.getItem('user'));
@@ -111,6 +112,7 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
         this.dataSourceEspecialidades.sort = this.MatSortEspecialidades;
         this.dataSourceEspecialidades.paginator = this.MatPaginatorEspecialidades;
 
+        this.dataSourceLogs.sort = this.MatSortLogs;
     }
 
     ngOnDestroy(): void {
@@ -250,6 +252,7 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
         this.authSvc.user$
             .pipe(takeUntil(this.destroy$))
             .subscribe((user: RespuestaLogin) => {
+                console.log("user", user)
                 this.usuarioLogin = user.response;
             });
     }

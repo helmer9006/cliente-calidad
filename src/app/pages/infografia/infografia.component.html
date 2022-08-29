@@ -7,7 +7,7 @@
     <div fxFlex="23" fxFlex.lg="22" fxFlex.sm="43" fxFlex.md="30" *ngFor="let infografia of infografiasList">
         <!-- llamo al componente area tarjeta y le paso el objeto area -->
         <div class="container-info" style="margin-top: 30px;">
-            <img [src]="infografia.url" alt="imagen infografía">
+            <img [src]="infografia.url" alt="imagen infografía" (click)="openImg(infografia.url)">
             <div class="text-info" style="position: relative;">
                 <h2 class="center"><strong>{{infografia.descripcion}}</strong></h2>
                 <p class="center"> <strong></strong> {{infografia.createdAt | date:'dd-MM-yyyy'}}</p>
@@ -26,7 +26,7 @@
     </div>
 
 </div>
-<button mat-fab color="primary" matTooltip="Agregar infogafía" class="add" (click)="onOpenModalInfografia()">
+<button *ngIf="user?.response?.perfil != 'estandar'" mat-fab color="primary" matTooltip="Agregar infogafía" class="add" (click)="onOpenModalInfografia()">
     <mat-icon>
         add
     </mat-icon>

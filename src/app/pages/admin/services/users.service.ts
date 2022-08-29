@@ -59,6 +59,10 @@ export class UsersService {
         return this.http
             .get<ReqResResponseUsuarios>(`${environment.API_URL}/api/usuarios/cumples`)
     }
-
+    
+    logoutUser(): Observable<any> {
+        return this.http
+            .put<any>(`${environment.API_URL}/api/logout`, null)
+    }
 
 }

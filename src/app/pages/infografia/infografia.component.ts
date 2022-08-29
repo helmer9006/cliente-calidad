@@ -32,6 +32,7 @@ export class InfografiaComponent implements OnInit {
             });
 
         this.user = JSON.parse(localStorage.getItem('user'));
+        console.log(this.user);
     };
 
 
@@ -70,5 +71,9 @@ export class InfografiaComponent implements OnInit {
                     });
                 });
         }
+    }
+
+    openImg(url: string) {
+        window.open(url, '_blank');
     }
 }

@@ -6,7 +6,7 @@ import {
     EventEmitter,
     OnDestroy,
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { AuthService } from '@auth/auth.service';
 import { takeUntil } from 'rxjs/operators';
 import { UtilsService } from '../../services/utils.service';
@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     isLogged = false;
     usuarioLogueado: any;
     private destroy$ = new Subject<any>();
+    private subscription: Subscription = new Subscription();
 
     @Output() toggleSidenav = new EventEmitter<void>();
 
@@ -49,6 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next({});
         this.destroy$.complete();
+        this.subscription.unsubscribe();
     }
 
     onToggleSidenav(): void {
@@ -56,6 +58,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     onLogout(): void {
-        this.authSvc.logout();
+        this.subscription.add(
+            this.authSvc.logout().subscribe((res) => {
+                console.log("res", res)
+
+            })
+        );
     }
 }

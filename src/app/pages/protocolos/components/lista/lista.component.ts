@@ -20,7 +20,7 @@ import { ToastrCustomService } from '../../../../shared/services/toastr.service'
 })
 export class ListaComponent implements AfterViewInit, OnInit, OnDestroy {
     idArea: string;
-    displayedColumns: string[] = ['id', 'nombre', 'especialidad', 'creado', 'createdAt', 'acciones'];
+    displayedColumns: string[] = ['id', 'nombre', 'area', 'especialidad', 'creado', 'createdAt', 'acciones'];
     dataSource = new MatTableDataSource();
     user: any;
     private destroy$ = new Subject<any>();

@@ -3,7 +3,7 @@ import { AuthService } from '@auth/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { RespuestaLogin } from '../../models/usuarios.interface';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-sidebar',
@@ -11,6 +11,7 @@ import { Subject } from 'rxjs';
     styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
+    private subscription: Subscription = new Subscription();
     constructor(
         private authSvc: AuthService,
         private utilsSvc: UtilsService) {
@@ -18,7 +19,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.destroy$))
             .subscribe((user: RespuestaLogin) => {
                 this.usuarioLogin = user?.response;
-                console.log("usuarioLogin", this.usuarioLogin)
             });
     }
 
@@ -28,6 +28,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next({});
         this.destroy$.complete();
+        this.subscription.unsubscribe();
     }
 
     ngOnInit(): void {
@@ -36,7 +37,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
 
     onExit(): void {
-        this.authSvc.logout();
+        this.subscription.add(
+            this.authSvc.logout().subscribe((res) => {
+                console.log("res", res)
+            })
+        );
         this.utilsSvc.openSidebar(false);
     }
 }

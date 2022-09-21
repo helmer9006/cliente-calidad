@@ -3,7 +3,7 @@
 <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="30px" style="margin: 20px;">
     <!-- puedo usar las propiedades como directivas [fxLayoutAlign] y tener una variable para pasarla -->
     <!-- definimos el tamaño de cada tarjeta del total del row -->
-
+    <h1 style="text-align: center;" *ngIf="infografiasList.length == 0">No hay infografías para mostrar.</h1>
     <div fxFlex="23" fxFlex.lg="22" fxFlex.sm="43" fxFlex.md="30" *ngFor="let infografia of infografiasList">
         <!-- llamo al componente area tarjeta y le paso el objeto area -->
         <div class="container-info" style="margin-top: 30px;">

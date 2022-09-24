@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { HttpClient, HttpResponse, HttpRequest, 
+import { HttpClient, HttpResponse, HttpRequest,
          HttpEventType, HttpErrorResponse } from '@angular/common/http';
 // import { Subscription } from 'rxjs/Subscription';
 // import { of } from 'rxjs/observable/of';
@@ -25,8 +25,8 @@ export class CargarArchivoComponent implements OnInit {
       /** Name used in form which will be sent in HTTP request. */
       @Input() param = 'archivo';
       /** Target URL for file uploading. */
-      @Input() target = 'http://localhost:4000/api/documentos/cargar/imagenes/';
-      /** File extension that accepted, same as 'accept' of <input type="file" />. 
+      @Input() target = 'http://192.168.1.6:4000/api/documentos/cargar/imagenes/';
+      /** File extension that accepted, same as 'accept' of <input type="file" />.
           By the default, it's set to 'image/*'. */
       @Input() accept = 'image/*';
       /** Allow you to add handler after its completion. Bubble up response text from remote. */
@@ -45,7 +45,7 @@ export class CargarArchivoComponent implements OnInit {
             fileUpload.onchange = () => {
                   for (let index = 0; index < fileUpload.files.length; index++) {
                         const file = fileUpload.files[index];
-                        this.files.push({ data: file, state: 'in', 
+                        this.files.push({ data: file, state: 'in',
                           inProgress: false, progress: 0, canRetry: false, canCancel: true });
                   }
                   this.uploadFiles();

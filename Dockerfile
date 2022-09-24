@@ -1,4 +1,4 @@
-FROM node:18-alpine AS build
+FROM node:14-alpine3.15 AS build
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ RUN npm run build --prod
 
 #SEGUNDA ETAPA
 
-FROM nginx:1.23.1-alpine AS prod-stage
+FROM nginx:1.23.1 AS prod-stage
 
 COPY --from=build /app/dist/protocolos /usr/share/nginx/html
 

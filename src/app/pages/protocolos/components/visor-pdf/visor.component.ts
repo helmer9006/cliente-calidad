@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./visor.component.scss']
 })
 export class VisorComponent implements OnInit {
-    pdfSrc = "http://localhost:4000/public/pdf/1657254593267.pdf"
+    pdfSrc = "http://192.168.1.6:4000/public/pdf/1657254593267.pdf"
     page = 1;
     zoom = 0.98; // default initial zoom value
     zoomMax = 2; // max zoom value

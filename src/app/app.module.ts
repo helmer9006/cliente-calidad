@@ -46,13 +46,13 @@ import { ImagenPipeUsuario } from './shared/components/header/pipes/imagen.pipe'
         }),
         NgxSpinnerModule,
         FormsModule,
-        
+
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorService, multi: true },
         { provide: LOCALE_ID, useValue: 'es-CO' },
-        
+
     ],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

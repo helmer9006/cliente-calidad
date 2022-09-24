@@ -7,8 +7,8 @@ const routes: Routes = [
     {
         path: '',
         loadChildren: () =>
-            import('./pages/home/home.module').then((m) => m.HomeModule),
-        // canActivate: [AuthGuard], canLoad: [AuthGuard],
+        import('./pages/auth/login/login.module').then((m) => m.LoginModule),
+            // canActivate: [RutasGuard],
     },
     {
         path: 'notFound',
@@ -59,7 +59,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, { useHash: true })],
     exports: [RouterModule],
 })
 export class AppRoutingModule { }

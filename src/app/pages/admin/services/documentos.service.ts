@@ -11,11 +11,11 @@ export class DocumentosService {
     constructor(private http: HttpClient) { }
 
     public post(url: string, body) {
-        return this.http.post(url, body); // POST  
+        return this.http.post(url, body); // POST
     }
 
-    createDocumento(archivo: any): Observable<any> {
-        return this.http.post<any>(`${environment.API_URL}/api/documentos/cargar/imagenes`, archivo)
+    createDocumento(archivo: any, tipoDoc: string = 'pdf'): Observable<any> {
+        return this.http.post<any>(`${environment.API_URL}/api/documentos/cargar/${tipoDoc}`, archivo)
     }
 }
 export interface ReqResponseDocumentos {

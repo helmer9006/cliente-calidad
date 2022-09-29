@@ -219,7 +219,7 @@ export class ConfiguracionComponent implements OnInit, OnDestroy {
             this.archivos.forEach(archivo => {
                 formularioDeDatos.append('file', archivo)
             })
-            this.cargarDocSvc.createDocumento(formularioDeDatos)
+            this.cargarDocSvc.createDocumento(formularioDeDatos, "imagenes")
                 .subscribe(res => {
                     if (!res.status) {
                         this.toastr.showError(res.msg);

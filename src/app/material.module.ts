@@ -20,40 +20,40 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 const myModules = [
-    MatToolbarModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatListModule,
-    MatIconModule,
-    MatInputModule,
-    MatCardModule,
-    MatTableModule,
-    MatSortModule,
-    MatDialogModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatNativeDateModule,
-    MatDatepickerModule,
-    MatGridListModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatFormFieldModule,
-    MatSlideToggleModule,
-    MatTabsModule,
-    MatAutocompleteModule
-
+  MatToolbarModule,
+  MatSidenavModule,
+  MatButtonModule,
+  MatMenuModule,
+  MatListModule,
+  MatIconModule,
+  MatInputModule,
+  MatCardModule,
+  MatTableModule,
+  MatSortModule,
+  MatDialogModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatNativeDateModule,
+  MatDatepickerModule,
+  MatGridListModule,
+  MatProgressSpinnerModule,
+  MatTooltipModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatFormFieldModule,
+  MatSlideToggleModule,
+  MatTabsModule,
+  MatAutocompleteModule,
+  MatCheckboxModule,
 ];
 
 @NgModule({
-    imports: [...myModules],
-    exports: [...myModules],
+  imports: [...myModules],
+  exports: [...myModules],
 })
-export class MaterialModule { }
+export class MaterialModule {}

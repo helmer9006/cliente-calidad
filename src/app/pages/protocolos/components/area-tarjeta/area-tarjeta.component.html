@@ -1,13 +1,18 @@
-<mat-card class="example-card" [routerLink]="['/protocolos/listado', area.id ]">
-    <!-- <mat-card-header> -->
-        <!-- <div mat-card-avatar class="example-header-image"></div> -->
-        <!-- <mat-card-title>{{area.nombre}}</mat-card-title> -->
-        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
-    <!-- </mat-card-header> -->
-    <img [src]="area | imagen" alt="imagen àrea">
+<mat-card class="example-card" (click)="selectedArea(area.id)">
+  <!-- <mat-card-header> -->
+  <!-- <div mat-card-avatar class="example-header-image"></div> -->
+  <!-- <mat-card-title>{{area.nombre}}</mat-card-title> -->
+  <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+  <!-- </mat-card-header> -->
+  <img [src]="area | imagen" alt="imagen àrea" />
 
-    <mat-card-content>
-        <h2><strong>{{area.nombre}}</strong></h2>
-        <p> <strong> Ubicación:</strong> {{area.ubicacion}}</p>
-    </mat-card-content>
+  <mat-card-content>
+    <h2>
+      <strong>{{ area.nombre }}</strong>
+    </h2>
+    <!-- <p>subcarpetas: <strong>{{ subAreasList.length }}</strong></p> -->
+    <p *ngIf="router.url === '/protocolos/areas'">
+      <strong> Ubicación:</strong> {{ area.ubicacion }}
+    </p>
+  </mat-card-content>
 </mat-card>

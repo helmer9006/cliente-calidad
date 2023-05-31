@@ -11,14 +11,19 @@ import { ClimaComponent } from './components/clima/clima.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-    declarations: [AdminComponent, ModalComponent, CargarDocumentoComponent, ClimaComponent],
-    imports: [
-        CommonModule,
-        AdminRoutingModule,
-        MaterialModule,
-        ReactiveFormsModule, 
-        FormsModule,
-        FlexLayoutModule
-    ],
+  declarations: [
+    AdminComponent,
+    ModalComponent,
+    CargarDocumentoComponent,
+    ClimaComponent,
+  ],
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    FormsModule,
+    FlexLayoutModule,
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}

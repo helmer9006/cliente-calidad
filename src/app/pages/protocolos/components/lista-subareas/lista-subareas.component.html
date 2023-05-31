@@ -1,0 +1,27 @@
+<!-- div para hacer flex con wrap con fxlayout -->
+<h1 class="titulo2"><strong>Listado de áreas</strong></h1>
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="30px">
+  <!-- puedo usar las propiedades como directivas [fxLayoutAlign] y tener una variable para pasarla -->
+  <!-- definimos el tamaño de cada tarjeta del total del row -->
+  <div
+    fxFlex="18"
+    fxFlex.lg="15"
+    fxFlex.sm="30"
+    *ngFor="let area of subAreasList"
+  >
+    <!-- llamo al componente area tarjeta y le paso el objeto area -->
+    <app-area-tarjeta [area]="area" (enviarUrlPrevia)="recibirUrlActual($event)"></app-area-tarjeta>
+  </div>
+</div>
+<div>
+  <button
+    mat-raised-button
+    color="primary"
+    class="btn-200"
+    style="margin-top: 20px; padding: 10px"
+    (click)="back()"
+  >
+    <mat-icon>keyboard_return</mat-icon>
+    Volver
+  </button>
+</div>

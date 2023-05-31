@@ -26,7 +26,7 @@
             </mat-form-field>
 
             <!-- AREA -->
-            <mat-form-field class="full-width-input">
+            <!-- <mat-form-field class="full-width-input">
                 <mat-label>Elegir Área</mat-label>
                 <mat-select formControlName="idArea">
                     <mat-option *ngFor="let area of areasList;let i=index" [value]="area.id">
@@ -36,7 +36,33 @@
                 <mat-error *ngIf="checkField('idArea')">
                     {{ FormProtocolo.errorMessage }}
                 </mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
+
+            <mat-form-field
+            class="example-full-width"
+            appearance="fill"
+          >
+            <mat-label>Área</mat-label>
+            <input
+              type="text"
+              placeholder="Buscar área"
+              aria-label="area"
+              matInput
+              formControlName="idArea"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete
+              #auto="matAutocomplete"
+              [displayWith]="displayFn.bind(this)"
+            >
+              <mat-option
+                *ngFor="let area of filteredOptions | async"
+                [value]="area.id"
+              >
+                {{ area.nombre }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
 
             <!-- DOCUMENTO PDF -->
             <input accept="application/pdf" type="file" class="file-input" (change)="onFileSelected($event)"

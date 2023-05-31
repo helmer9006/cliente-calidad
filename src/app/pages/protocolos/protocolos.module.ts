@@ -15,11 +15,30 @@ import { VisorComponent } from './components/visor-pdf/visor.component';
 import { DisableRightClickDirective } from './highlight.directive';
 import { HeaderPdfComponent } from './components/header/headerPdf.component';
 import { ModalProtocoloComponent } from './components/modal-protocolo/modal-protocolo.component';
+import { ListaSubareasComponent } from './components/lista-subareas/lista-subareas.component';
 
 @NgModule({
-    declarations: [ProtocolosComponent, AreaTarjetaComponent, ListaComponent, ImagenPipe, BaseComponent, VisorComponent, DisableRightClickDirective, HeaderPdfComponent, ModalProtocoloComponent],
-    imports: [CommonModule, ProtocolosRoutingModule, MaterialModule, FormsModule,
-        ReactiveFormsModule, ProtocolosRoutingModule,PdfViewerModule, FlexLayoutModule, 
-    ],
+  declarations: [
+    ProtocolosComponent,
+    AreaTarjetaComponent,
+    ListaComponent,
+    ImagenPipe,
+    BaseComponent,
+    VisorComponent,
+    DisableRightClickDirective,
+    HeaderPdfComponent,
+    ModalProtocoloComponent,
+    ListaSubareasComponent,
+  ],
+  imports: [
+    CommonModule,
+    ProtocolosRoutingModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ProtocolosRoutingModule,
+    PdfViewerModule,
+    FlexLayoutModule,
+  ],
 })
-export class ProtocolosModule { }
+export class ProtocolosModule {}

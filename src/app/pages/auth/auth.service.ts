@@ -6,12 +6,12 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
 
 import { RespuestaLogin, UsuarioAuth, Roles, ReqResResponseUsuarios } from '@shared/models/usuarios.interface';
 import { catchError, map } from 'rxjs/operators';
-import { JwtHelperService } from '@auth0/angular-jwt';
+//import { JwtHelperService } from '@auth0/angular-jwt';
 import { UtilsService } from '../../shared/services/utils.service';
 import { ToastrCustomService } from '../../shared/services/toastr.service';
 import { UsersService } from '../admin/services/users.service';
 
-const helper = new JwtHelperService();
+//const helper = new JwtHelperService();
 
 @Injectable({
     providedIn: 'root',
@@ -51,13 +51,13 @@ export class AuthService {
             .get<any>(`${environment.API_URL}/api/logout/user`)
             .pipe(
                 map((res: any) => {
-                    if(res.status){
+                    if (res.status) {
                         localStorage.removeItem('user');
                         this.router.navigate(['/login']);
                         this.user.next(null);
                         this.utilsSvc.openSidebar(false);
                         this.toastr.showSuccess(res.msg);
-                    }else{
+                    } else {
                         this.toastr.showError(res.msg);
                         return
                     }
@@ -69,7 +69,8 @@ export class AuthService {
     public checkToken(): void {
         const user = JSON.parse(localStorage.getItem('user')) || null;
         if (user) {
-            const isExpired = helper.isTokenExpired(user.response.token);
+            const decodedToken = this.decodeToken(user.response.token);
+            const isExpired = this.isTokenValid(decodedToken.exp);
             if (isExpired) {
                 window.alert("Sesión caducada");
             }
@@ -93,4 +94,34 @@ export class AuthService {
         window.alert(errorMessage);
         return throwError(errorMessage);
     }
+    decodeToken(token: string) {
+        if (!token) {
+            return;
+        }
+        debugger;
+        const _decodeToken = (token: string) => {
+            try {
+                return JSON.parse(atob(token));
+            } catch {
+                return;
+            }
+        };
+        return token
+            .split('.')
+            .map((token) => _decodeToken(token))
+            .reduce((acc, curr) => {
+                if (!!curr) acc = { ...acc, ...curr };
+                return acc;
+            }, Object.create(null));
+    }
+
+    isTokenValid(input: number): boolean {
+        if (!input) {
+            return false;
+        }
+        debugger;
+        const fechaExpiracion = new Date(input * 1000);
+        return fechaExpiracion < new Date();
+    }
+
 }

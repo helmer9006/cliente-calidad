@@ -25,7 +25,7 @@ export class CargarArchivoComponent implements OnInit {
       /** Name used in form which will be sent in HTTP request. */
       @Input() param = 'archivo';
       /** Target URL for file uploading. */
-      @Input() target = 'http://localhost:4000/api/documentos/cargar/imagenes/';
+      @Input() target = 'http://10.1.3.110:4000/api/documentos/cargar/imagenes/';
       /** File extension that accepted, same as 'accept' of <input type="file" />.
           By the default, it's set to 'image/*'. */
       @Input() accept = 'image/*';
